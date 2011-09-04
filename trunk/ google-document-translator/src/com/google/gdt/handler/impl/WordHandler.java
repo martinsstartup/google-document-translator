@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -63,47 +64,46 @@ public class WordHandler extends DocumentHandler
 		InputStream inputStream = new FileInputStream(inputFile);
 		
 		HWPFDocument hDocument = new HWPFDocument(inputStream);
-		XWPFDocument xwpfDocument = new XWPFDocument(inputStream);
-		
 		Range range = hDocument.getRange();
-		
 		List<Paragraph> paragraphs = new ArrayList<Paragraph>();
+		
+		pLevel.setTrFileName(outPutFile);
+		pLevel.setValue(0);
+		pLevel.setStringPainted(true);
+		pLevel.setMaxValue(range.numParagraphs());
+		
 		for(int i =0;i<range.numParagraphs();i++)
 		{
-			String inputText = "";
-			try
-			{
 				Paragraph paragraph = range.getParagraph(i);
-				paragraphs.add(paragraph);
-				
-				String translatedTxt = inputText;
-				if(inputText.contains("\n")||inputText.contains("\r")||inputText.contains("\t")||inputText.contains("\n"))
+				int numCharRuns = paragraph.numCharacterRuns();
+				for (int j = 0; j < numCharRuns; j++) 
 				{
-//					inputText = inputText.replaceAll("[\\n]", " newline ");
-//					translatedTxt = Translator.Translate(inputText);
-//					translatedTxt = translatedTxt.replaceAll("newline", "\n");
-					continue;
+					CharacterRun charRun = paragraph.getCharacterRun(j);
+					String inputText = charRun.text();
+					String translatedTxt = inputText;
+					try
+					{
+						if(inputText.contains("\n")||inputText.contains("\r")||inputText.contains("\t"))
+						{
+							translatedTxt = inputText.replaceAll("[\\n]", " newline ");
+							translatedTxt = translator.translate(translatedTxt);
+							translatedTxt = translatedTxt.replaceAll("newline", "\n");
+							charRun.replaceText(inputText, "added");
+						}
+						else
+						{
+							translatedTxt = translator.translate(inputText);
+							charRun.replaceText(inputText, translatedTxt);
+						}
+					}
+					catch (Exception e) 
+					{
+						logger.log(Level.SEVERE, "cannot transtlate input text : "+inputText, e);
+					}
 				}
-				else
-				{
-					translatedTxt = translator.translate(inputText);
-				}
-//				paragraph.replaceText(inputText, translatedTxt);
-				paragraph.insertAfter(translatedTxt);
 			}
-			catch(IllegalArgumentException e)
-			{
-				logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText,e);
-			} 
-			catch (Exception e) 
-			{
-				logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText,e);
-			}
-		}
-		
+			
 		hDocument.write(outputStream);
 		outputStream.close();
-		
 	}
-	
 }
