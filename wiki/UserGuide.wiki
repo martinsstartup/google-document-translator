@@ -1,5 +1,5 @@
 #summary Google Document Translator Help Document.
-#labels help,feature,userguide
+#labels help,Featured,userguide
 
 = Introduction =
 
