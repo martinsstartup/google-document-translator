@@ -154,9 +154,7 @@ public class WordxHandler extends DocumentHandler
 	{
 		for(XWPFRun xwpfRun : xParagraph.getRuns())
 		{
-			
 			String inputText = xwpfRun.getText(0);
-			
 			String translatedTxt = inputText;
 			try
 			{
