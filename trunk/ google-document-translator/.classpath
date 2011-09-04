@@ -2,13 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="lib/poi-3.8-beta4-20110819.jar"/>
-	<classpathentry kind="lib" path="lib/poi-excelant-3.8-beta4-20110819.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-3.8-beta4-20110819.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.8-beta4-20110819.jar"/>
-	<classpathentry kind="lib" path="lib/poi-scratchpad-3.8-beta4-20110819.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/google-api-translate-java-0.95.jar" sourcepath="C:/workspace/com.google.api.translate/google-api-translate-java/src/main/java"/>
 	<classpathentry kind="lib" path="lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.8-beta5-20110903.jar"/>
+	<classpathentry kind="lib" path="lib/poi-excelant-3.8-beta5-20110903.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-3.8-beta5-20110903.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.8-beta5-20110903.jar"/>
+	<classpathentry kind="lib" path="lib/poi-scratchpad-3.8-beta5-20110903.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
