@@ -71,38 +71,42 @@ public class WordHandler extends DocumentHandler
 		pLevel.setValue(0);
 		pLevel.setStringPainted(true);
 		pLevel.setMaxValue(range.numParagraphs());
-		
+		int count = 0;
 		for(int i =0;i<range.numParagraphs();i++)
 		{
-				Paragraph paragraph = range.getParagraph(i);
-				int numCharRuns = paragraph.numCharacterRuns();
-				for (int j = 0; j < numCharRuns; j++) 
+			Paragraph paragraph = range.getParagraph(i);
+			int numCharRuns = paragraph.numCharacterRuns();
+			for (int j = 0; j < numCharRuns; j++) 
+			{
+				CharacterRun charRun = paragraph.getCharacterRun(j);
+				String inputText = charRun.text();
+				String translatedTxt = inputText;
+				try
 				{
-					CharacterRun charRun = paragraph.getCharacterRun(j);
-					String inputText = charRun.text();
-					String translatedTxt = inputText;
-					try
+					if(inputText.contains("\n")||inputText.contains("\r")||inputText.contains("\t"))
 					{
-						if(inputText.contains("\n")||inputText.contains("\r")||inputText.contains("\t"))
-						{
-							translatedTxt = inputText.replaceAll("[\\n]", " newline ");
-							translatedTxt = translator.translate(translatedTxt);
-							translatedTxt = translatedTxt.replaceAll("newline", "\n");
-							charRun.replaceText(inputText, "added");
-						}
-						else
-						{
-							translatedTxt = translator.translate(inputText);
-							charRun.replaceText(inputText, translatedTxt);
-						}
+						translatedTxt = inputText.replaceAll("[\\n]", " newline ");
+						translatedTxt = translator.translate(translatedTxt);
+						translatedTxt = translatedTxt.replaceAll("newline", "\n");
+						if(!inputText.equals(translatedTxt))
+						charRun.replaceText(inputText, translatedTxt);
 					}
-					catch (Exception e) 
+					else
 					{
-						logger.log(Level.SEVERE, "cannot transtlate input text : "+inputText, e);
+						translatedTxt = translator.translate(inputText);
+						if(!inputText.equals(translatedTxt))
+						charRun.replaceText(inputText, translatedTxt.toString());
 					}
 				}
+				catch (Exception e) 
+				{
+					logger.log(Level.SEVERE, "cannot transtlate input text : "+inputText, e);
+				}
 			}
-			
+			count++;
+			pLevel.setValue(count);
+		}
+		pLevel.setString("done");	
 		hDocument.write(outputStream);
 		outputStream.close();
 	}
