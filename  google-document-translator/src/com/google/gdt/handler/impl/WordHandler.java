@@ -20,6 +20,7 @@
 
 package com.google.gdt.handler.impl;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,7 +36,6 @@ import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import com.google.gdt.handler.DocumentHandler;
 import com.google.gdt.ui.ProgressLevel;
@@ -78,6 +78,13 @@ public class WordHandler extends DocumentHandler
 			int numCharRuns = paragraph.numCharacterRuns();
 			for (int j = 0; j < numCharRuns; j++) 
 			{
+				if (isInterrupted) 
+				{
+					outputStream.close();
+					new File(outputFile).delete();
+					pLevel.setString("cancelled");
+					return;
+				}
 				CharacterRun charRun = paragraph.getCharacterRun(j);
 				String inputText = charRun.text();
 				String translatedTxt = inputText;
