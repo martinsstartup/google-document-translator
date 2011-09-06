@@ -74,6 +74,7 @@ public class PowerpointHandler extends DocumentHandler
 		pLevel.setValue(0);
 		pLevel.setMaxValue(pptSlides.length);
 		pLevel.setStringPainted(true);
+		pLevel.setTrFileName(outPutFile);
 		
 		int pBarUpdate = 0;
 		
