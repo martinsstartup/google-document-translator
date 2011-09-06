@@ -68,6 +68,8 @@ public class ExcelxHandler extends DocumentHandler
 		XSSFWorkbook xssfWorkbook = new XSSFWorkbook(inputFile);
 		List<XSSFSheet> sheets = getSheets(xssfWorkbook);
 		
+		pLevel.setTrFileName(outPutFile);
+		
 		for(int index=0; index<sheets.size();index++)
 		{
 			XSSFSheet xssfsheet = sheets.get(index);
