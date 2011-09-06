@@ -21,6 +21,9 @@
 package com.google.gdt.main;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +58,20 @@ public class Gdt {
 	    fh.setFormatter(new SimpleFormatter());
 	    logger.addHandler(fh);
 	    logger.setLevel(Level.INFO);
+	    
+	    logger.log(Level.INFO, "java.runtime.version : "+System.getProperty("java.runtime.version"));
+	    logger.log(Level.INFO, "file.Encoding : "+System.getProperty("file.Encoding"));
+	    logger.log(Level.INFO, "java.vm.vendor : "+System.getProperty("java.vm.vendor"));
+	    logger.log(Level.INFO, "java.vm.name : "+System.getProperty("java.vm.name"));
+	    logger.log(Level.INFO, "user.country : "+System.getProperty("user.country"));
+	    logger.log(Level.INFO, "user.language : "+System.getProperty("user.language"));
+	    logger.log(Level.INFO, "user.dir : "+System.getProperty("user.dir"));
+	    logger.log(Level.INFO, "os.name : "+System.getProperty("os.name"));
+	    logger.log(Level.INFO, "java.specification.version : "+System.getProperty("java.specification.version"));
+	    logger.log(Level.INFO, "java.class.path : "+System.getProperty("java.class.path"));
+	    logger.log(Level.INFO, "user.name : "+System.getProperty("user.name"));
+	    logger.log(Level.INFO, "java.home : "+System.getProperty("java.home"));
+	    logger.log(Level.INFO, "sun.desktop : "+System.getProperty("sun.desktop"));
 	    
 		ToolTipManager.sharedInstance().setInitialDelay(0);
 		java.awt.EventQueue.invokeLater(new Runnable() 
