@@ -130,38 +130,38 @@ public class ProgressLevel extends JPanel {
 	class HGTpopupMenu extends MouseAdapter
 	{
 		JPopupMenu jPopupMenu = new JPopupMenu();
-		JMenuItem jMenuItem1 = new JMenuItem();
-		JMenuItem jMenuItem2 = new JMenuItem();
-		JMenuItem jMenuItem3 = new JMenuItem();
-		JMenuItem jMenuItem4 = new JMenuItem();
+		JMenuItem openFolderMenu = new JMenuItem();
+		JMenuItem originalFileMenu = new JMenuItem();
+		JMenuItem translatedFileMenu = new JMenuItem();
+		JMenuItem removeMenu = new JMenuItem();
 		
 		@Override
 		public void mouseClicked(MouseEvent e) 
 		{
 			if(!jBar.getString().equals("done"))
 			{
-				jMenuItem3.setEnabled(false);
+				translatedFileMenu.setEnabled(false);
 			}
 			else
-				jMenuItem3.setEnabled(true);
+				translatedFileMenu.setEnabled(true);
 			jPopupMenu.show(e.getComponent(), e.getX(), e.getY());
 		}
 		
 		public HGTpopupMenu() 
 		{
-			jMenuItem1.setText("Open Folder");
-			jMenuItem2.setText("Original File");
-			jMenuItem3.setText("Translated File");
-			jMenuItem4.setText("Remove");
+			openFolderMenu.setText("Open Folder");
+			originalFileMenu.setText("Original File");
+			translatedFileMenu.setText("Translated File");
+			removeMenu.setText("Remove");
 			
-			jPopupMenu.add(jMenuItem1);
-			jPopupMenu.add(jMenuItem2);
-			jPopupMenu.add(jMenuItem3);
-			jPopupMenu.add(jMenuItem4);
+			jPopupMenu.add(openFolderMenu);
+			jPopupMenu.add(originalFileMenu);
+			jPopupMenu.add(translatedFileMenu);
+			jPopupMenu.add(removeMenu);
 			
-			jMenuItem3.setEnabled(false);
+			translatedFileMenu.setEnabled(false);
 			
-			jMenuItem1.addActionListener(new ActionListener() 
+			openFolderMenu.addActionListener(new ActionListener() 
 			{
 				
 				@Override
@@ -178,7 +178,7 @@ public class ProgressLevel extends JPanel {
 				}
 			});
 			
-			jMenuItem2.addActionListener(new ActionListener() 
+			originalFileMenu.addActionListener(new ActionListener() 
 			{
 				
 				@Override
@@ -195,7 +195,7 @@ public class ProgressLevel extends JPanel {
 				}
 			});
 			
-			jMenuItem3.addActionListener(new ActionListener() 
+			translatedFileMenu.addActionListener(new ActionListener() 
 			{
 				
 				@Override
@@ -212,7 +212,7 @@ public class ProgressLevel extends JPanel {
 				}
 			});
 			
-			jMenuItem4.addActionListener(new ActionListener() 
+			removeMenu.addActionListener(new ActionListener() 
 			{
 			
 				MainJFrame mainJFrame = MainJFrame.getInstance();
