@@ -140,7 +140,7 @@ public class PreferenceModel implements Serializable{
 			}
 			isProxyEnable=false;
 			translatorType = TranslatorType.AJAX;
-			fromLanguage=Language.BENGALI;
+			fromLanguage=Language.AUTO_DETECT;
 			toLanguage=Language.ENGLISH;
 			recentFiles = new ArrayList<String>(4);
 			lastLocation = "";
@@ -238,6 +238,8 @@ public class PreferenceModel implements Serializable{
 	}
 
 	public void setRecentFiles(String recentFile) {
+		if(recentFiles.contains(recentFile))
+			return;
 		if(recentFiles.size()<=4)
 		{
 			recentFiles.add(recentFile);
