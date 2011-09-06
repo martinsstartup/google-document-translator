@@ -23,6 +23,7 @@ package com.google.gdt.ui;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -40,6 +41,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -237,6 +239,21 @@ public class MainJFrame extends javax.swing.JFrame {
         
         helpMenuItem.setText("GDT-Help");
         helpMenuItem.setMnemonic('h');
+        helpMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				java.net.URI uri;
+				try {
+					uri = new java.net.URI("http://code.google.com/p/google-document-translator/wiki/UserGuide");
+					Desktop.getDesktop().browse(uri);
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+				} catch (IOException e2) {
+					logger.log(Level.SEVERE, "cannot open browser", e2);
+				}
+			}
+		});
         editMenu.add(helpMenuItem);
 
         aboutMenuItem.setText("About");
