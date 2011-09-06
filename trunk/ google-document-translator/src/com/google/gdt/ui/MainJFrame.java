@@ -49,6 +49,7 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.TransferHandler;
@@ -196,6 +197,14 @@ public class MainJFrame extends javax.swing.JFrame {
         recentFileMenu.setText("Recent");
         recentFileMenu.setMnemonic('R');
         fileMenu.add(recentFileMenu);
+        for(String filename:preferenceModel.getRecentFiles())
+        {
+        	if(new File(filename).exists())
+        	{
+	        	JMenuItem recent = new RecentFileMenuItem(filename);
+	        	recentFileMenu.add(recent);
+        	}
+        }
 
         exitMenuItem.setText("Exit");
         exitMenuItem.setMnemonic('x');
@@ -295,6 +304,9 @@ public class MainJFrame extends javax.swing.JFrame {
 		preferenceModel.setLastLocation(gdtChooser.getCurrentDirectory().getAbsolutePath());
 	}
 
+	/*
+	 * This method will be a common method for filechooser and DnD action, 
+	 */
 	private void createGdtJobs(File[] selectedFiles) {
 		// TODO Auto-generated method stub
 		for(File file : selectedFiles)
