@@ -32,7 +32,7 @@ public class TrConstants {
 
 	public static final String UAGENT = "Mozilla/5.0";
 	
-	public static final String AMETADATA = "client=t&hl=en&multires=1&otf=2&pc=25&sl=zh-CN&ssel=0&text=";
+	public static final String AMETADATA = "client=t&hl=en&multires=1&otf=2&pc=2&sl=zh-CN&ssel=0&text=";
 	
-	public static final String PMETADATA = "&tl=en&tsel=0&uptl=en";
+	public static final String PMETADATA = "&tl=en&tsel=0";
 }
