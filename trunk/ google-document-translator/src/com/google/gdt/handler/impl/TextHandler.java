@@ -20,20 +20,15 @@
 
 package com.google.gdt.handler.impl;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,12 +48,13 @@ public class TextHandler extends DocumentHandler
 
 	private static Logger logger = Logger.getLogger("TextHandler.class");
 	
+	private static final String LINE_SEPERATOR = System.getProperty("line.separator");
+	
 	@Override
 	public void handle(String inputFile, ProgressLevel pLevel)
 			throws IOException, InvalidFormatException {
-		// TODO Auto-generated method stub
 		String outPutFile = getOuputFileName(inputFile);
-		BufferedReader br = new BufferedReader(new FileReader(inputFile));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile),"UTF8"));
 		BufferedWriter bw = new BufferedWriter(new FileWriter(outPutFile));
 		
 		pLevel.setTrFileName(outPutFile);
@@ -70,29 +66,54 @@ public class TextHandler extends DocumentHandler
 		// translate line in a bunch of 100
 		String inputText;
 		String translatedText="";
+		int count=0;
 		// Read File Line By Line
-		while ((inputText = br.readLine()) != null) {
+		while ((inputText = br.readLine()) != null) 
+		{
 			try 
 			{
+				translatedText = inputText;
+				if(null!=inputText && (!inputText.equals("")))
 				translatedText = translator.translate(inputText);
 			} 
 			catch (Exception e) 
 			{
-				// TODO Auto-generated catch block
 				logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText);
 			}
-			bw.write(translatedText);
+			bw.write(translatedText+LINE_SEPERATOR);
+			count++;
+			pLevel.setValue(count);
 		}
 		// Close the input stream
 		br.close();
 		bw.close();
+		
+		pLevel.setValue(lineCount);
+		pLevel.setString("done");
 	}
 
 	private int getLineCount(String is) throws FileNotFoundException 
 	{
-		// TODO Auto-generated method stub
 		Reader reader = new FileReader(is);
-		LineNumberReader lineNumberReader = new LineNumberReader(reader);
+		LineNumberReader lineNumberReader = new LineNumberReader(reader);;
+		try {
+			String line = "";
+			while ((line = lineNumberReader.readLine()) != null) {
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "not able to close File reader : "+is, e);
+			}
+			try {
+				lineNumberReader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "not able to close LineNumber reader : "+is, e);
+			}
+		}
 		return lineNumberReader.getLineNumber();
 	}
 
