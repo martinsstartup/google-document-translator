@@ -150,7 +150,7 @@ public class HttpTranslator implements Translator{
 		String response = body.substring(TrConstants.AMETADATA.length(), body.length()-TrConstants.PMETADATA.length());
 		try
 		{
-			response = answerString.substring(beginIndex+37, endIndex+14);
+			response = answerString.substring(beginIndex+38, endIndex+14);
 		}
 		catch (Exception e)
 		{
