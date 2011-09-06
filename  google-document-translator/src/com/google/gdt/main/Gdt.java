@@ -73,6 +73,12 @@ public class Gdt {
 	    logger.log(Level.INFO, "java.home : "+System.getProperty("java.home"));
 	    logger.log(Level.INFO, "sun.desktop : "+System.getProperty("sun.desktop"));
 	    
+	    if( !java.awt.Desktop.isDesktopSupported() ) {
+
+	    	logger.log(Level.SEVERE,"Desktop not supported, cannot continue");
+            System.exit( 1 );
+        }
+	    
 		ToolTipManager.sharedInstance().setInitialDelay(0);
 		java.awt.EventQueue.invokeLater(new Runnable() 
 		{
