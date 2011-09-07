@@ -160,9 +160,7 @@ public class ExcelHandler extends DocumentHandler{
 	 */
 	private static List<Sheet> getSheets(Workbook wb) 
 	{
-		
 		List<Sheet> sheets = new ArrayList<Sheet>();
-		
 		for(int i =0;i<20;i++)
 		{
 			try
@@ -175,8 +173,6 @@ public class ExcelHandler extends DocumentHandler{
 				break;
 			}
 		}
-		
 		return sheets;
 	}
-
 }

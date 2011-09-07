@@ -153,14 +153,12 @@ public class ExcelxHandler extends DocumentHandler
 	 */
 	private List<XSSFSheet> getSheets(XSSFWorkbook xssfWorkbook) 
 	{
-		
 		List<XSSFSheet> xssfSheets = new ArrayList<XSSFSheet>();
 		for (int i = 0; i < xssfWorkbook.getNumberOfSheets(); i++) 
 		{
 			XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(i);
 			xssfSheets.add(xssfSheet);
 		}
-		
 		return xssfSheets;
 	}
 
