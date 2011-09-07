@@ -76,8 +76,15 @@ public class HttpTranslator implements Translator{
 		logger.log(Level.INFO,"proxy port : "+System.getProperty("http.proxyPort"));
 		logger.log(Level.INFO,"to language : "+preferenceModel.getToLanguage());
 		logger.log(Level.INFO,"from language : "+preferenceModel.getFromLanguage());
-		ametadata = TrConstants.AMETADATA.replaceAll("SourceLanguage", preferenceModel.getFromLanguage().toString());
 		pmetadata = TrConstants.PMETADATA.replaceAll("Translatedlanguage", preferenceModel.getToLanguage().toString());
+		if(preferenceModel.getFromLanguage().toString().equals(""))
+		{
+			ametadata = TrConstants.AMETADATA.replaceAll("SourceLanguage", "auto");
+		}
+		else
+		{
+			ametadata = TrConstants.AMETADATA.replaceAll("SourceLanguage", preferenceModel.getFromLanguage().toString());
+		}
 	}
 	
 	/**
@@ -138,6 +145,7 @@ public class HttpTranslator implements Translator{
 	 */
 	private String doPost(String body) throws IOException
 	{
+//		logger.log(Level.INFO, "request message body : "+body);
 		// Send the request
 		URL url = new URL(TrConstants.TRANSURL);
 		URLConnection conn = url.openConnection();
@@ -165,13 +173,13 @@ public class HttpTranslator implements Translator{
 
 		// Output the response and truncate doctype
 		String answerString = answer.toString().substring(15);
-//		System.out.println(answerString);
+//		logger.log(Level.INFO, "Answer String from google : "+answerString);
 		int beginIndex = answerString.indexOf("span id=result_box");
 		int endIndex = answerString.lastIndexOf("</span></span>");
 		String response = body.substring(TrConstants.AMETADATA.length(), body.length()-TrConstants.PMETADATA.length());
 		try
 		{
-			response = answerString.substring(beginIndex+38, endIndex+14);
+			response = answerString.substring(beginIndex+37, endIndex+14);
 		}
 		catch (Exception e)
 		{
