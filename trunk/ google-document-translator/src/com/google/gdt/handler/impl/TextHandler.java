@@ -22,6 +22,7 @@ package com.google.gdt.handler.impl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -70,6 +71,14 @@ public class TextHandler extends DocumentHandler
 		// Read File Line By Line
 		while ((inputText = br.readLine()) != null) 
 		{
+			if (isInterrupted) 
+			{
+				br.close();
+				bw.close();
+				new File(outputFile).delete();
+				pLevel.setString("cancelled");
+				return;
+			}
 			try 
 			{
 				translatedText = inputText;
