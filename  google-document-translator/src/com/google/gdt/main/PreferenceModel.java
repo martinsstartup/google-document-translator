@@ -80,8 +80,11 @@ public class PreferenceModel implements Serializable{
 					fiStream = new FileInputStream(file);
 					oStream = new ObjectInputStream(fiStream);
 					preferenceModel = (PreferenceModel) oStream.readObject();
-					System.setProperty("http.proxyHost", preferenceModel.getProxyURL());
-					System.setProperty("http.proxyPort", new Integer(preferenceModel.getProxyPort()).toString());
+					if((null!=System.getProperty("http.proxyPort")) && (null!=System.getProperty("http.proxyPort")))
+					{
+						System.setProperty("http.proxyHost", preferenceModel.getProxyURL());
+						System.setProperty("http.proxyPort", new Integer(preferenceModel.getProxyPort()).toString());
+					}
 				} 
 				catch (FileNotFoundException e) 
 				{
