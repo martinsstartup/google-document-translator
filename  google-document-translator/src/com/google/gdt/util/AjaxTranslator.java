@@ -20,6 +20,7 @@
 
 package com.google.gdt.util;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.api.translate.Translate;
@@ -45,9 +46,14 @@ public class AjaxTranslator implements Translator
 	private static Logger logger = Logger.getLogger("AjaxTranslator.class");
 	
 	public AjaxTranslator() {
-		// TODO Auto-generated constructor stub
 		preferenceModel = PreferenceModel.getInstance();
+		logger.log(Level.INFO,"proxy url : "+System.getProperty("http.proxyHost"));
+		logger.log(Level.INFO,"proxy port : "+System.getProperty("http.proxyPort"));
+		logger.log(Level.INFO,"to language : "+preferenceModel.getToLanguage());
+		logger.log(Level.INFO,"from language : "+preferenceModel.getFromLanguage());
 	}
+	
+	
 	@Override
 	public String translate(String inputText) throws Exception
 	{
