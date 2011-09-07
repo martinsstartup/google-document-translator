@@ -61,19 +61,40 @@ public class HttpTranslator implements Translator{
 	private static Logger logger = Logger.getLogger("HttpTranslator.class");
 	
 	/**
+	 * 
+	 */
+	private String ametadata;
+	
+	/**
+	 * 
+	 */
+	private String pmetadata; 
+	
+	public HttpTranslator() {
+		preferenceModel = PreferenceModel.getInstance();
+		logger.log(Level.INFO,"proxy url : "+System.getProperty("http.proxyHost"));
+		logger.log(Level.INFO,"proxy port : "+System.getProperty("http.proxyPort"));
+		logger.log(Level.INFO,"to language : "+preferenceModel.getToLanguage());
+		logger.log(Level.INFO,"from language : "+preferenceModel.getFromLanguage());
+		ametadata = TrConstants.AMETADATA.replaceAll("SourceLanguage", preferenceModel.getFromLanguage().toString());
+		pmetadata = TrConstants.PMETADATA.replaceAll("Translatedlanguage", preferenceModel.getToLanguage().toString());
+	}
+	
+	/**
 	 * takes chinese text as input and translate it to english
 	 * @param inputText
 	 * @return translatedText
 	 */
+	@Override
 	public String translate(String inputText) throws Exception
 	{
 		String translatedText = "";
 		
 		if(null==inputText||inputText.equals(""))
 			return translatedText;
-		
-		String body = TrConstants.AMETADATA + inputText
-				+ TrConstants.PMETADATA;
+		 
+		String body = ametadata + inputText
+				+ pmetadata;
 		
 		String response = doPost(body);
 		translatedText = parseResponse(response);
