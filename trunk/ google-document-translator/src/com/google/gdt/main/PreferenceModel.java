@@ -80,7 +80,7 @@ public class PreferenceModel implements Serializable{
 					fiStream = new FileInputStream(file);
 					oStream = new ObjectInputStream(fiStream);
 					preferenceModel = (PreferenceModel) oStream.readObject();
-					if((null!=System.getProperty("http.proxyPort")) && (null!=System.getProperty("http.proxyPort")))
+					if((null!=preferenceModel.getProxyURL()) && (null!=preferenceModel.getProxyPort()))
 					{
 						System.setProperty("http.proxyHost", preferenceModel.getProxyURL());
 						System.setProperty("http.proxyPort", new Integer(preferenceModel.getProxyPort()).toString());
