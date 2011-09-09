@@ -34,5 +34,5 @@ public class TrConstants {
 	
 	public static final String AMETADATA = "client=t&hl=en&multires=1&otf=2&pc=2&sl=SourceLanguage&ssel=0&text=";
 	
-	public static final String PMETADATA = "&tl=Translatedlanguage&tsel=0";
+	public static final String PMETADATA = "&tl=TranslatedLanguage&tsel=0";
 }
