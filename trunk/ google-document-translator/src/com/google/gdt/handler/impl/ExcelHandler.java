@@ -83,7 +83,7 @@ public class ExcelHandler extends DocumentHandler{
 			
 			if(sheets.size()>1)
 			{
-				pLevel.setString("Translating sheet "+index+"/"+sheets.size());
+				pLevel.setString("Translating sheet "+(index+1)+"/"+sheets.size());
 			}
 			
 			int firstRowNum = sheet.getFirstRowNum();
