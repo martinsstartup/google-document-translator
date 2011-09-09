@@ -87,7 +87,7 @@ public class TextHandler extends DocumentHandler
 			} 
 			catch (Exception e) 
 			{
-				logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText);
+				logger.log(Level.SEVERE, "cannot translate the text : "+inputText,e);
 			}
 			bw.write(translatedText+LINE_SEPERATOR);
 			count++;
