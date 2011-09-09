@@ -76,7 +76,7 @@ public class HttpTranslator implements Translator{
 		logger.log(Level.INFO,"proxy port : "+System.getProperty("http.proxyPort"));
 		logger.log(Level.INFO,"to language : "+preferenceModel.getToLanguage());
 		logger.log(Level.INFO,"from language : "+preferenceModel.getFromLanguage());
-		pmetadata = TrConstants.PMETADATA.replaceAll("Translatedlanguage", preferenceModel.getToLanguage().toString());
+		pmetadata = TrConstants.PMETADATA.replaceAll("TranslatedLanguage", preferenceModel.getToLanguage().toString());
 		if(preferenceModel.getFromLanguage().toString().equals(""))
 		{
 			ametadata = TrConstants.AMETADATA.replaceAll("SourceLanguage", "auto");
@@ -176,14 +176,14 @@ public class HttpTranslator implements Translator{
 //		logger.log(Level.INFO, "Answer String from google : "+answerString);
 		int beginIndex = answerString.indexOf("span id=result_box");
 		int endIndex = answerString.lastIndexOf("</span></span>");
-		String response = body.substring(TrConstants.AMETADATA.length(), body.length()-TrConstants.PMETADATA.length());
+		String response = body.substring(ametadata.length(), body.length()-pmetadata.length());
 		try
 		{
 			response = answerString.substring(beginIndex+37, endIndex+14);
 		}
 		catch (Exception e)
 		{
-			logger.log(Level.SEVERE, "not able to translate the response : "+response,e);
+			logger.log(Level.SEVERE, "not able to translate the input : "+response,e);
 			return "<span>"+response+"</span>";
 		}
 //		System.out.println("<span>"+response);
