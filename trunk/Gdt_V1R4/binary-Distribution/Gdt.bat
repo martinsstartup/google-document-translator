@@ -1,0 +1,1 @@
+start javaw -Dfile.Encoding=UTF8 -jar Gdt.jar
