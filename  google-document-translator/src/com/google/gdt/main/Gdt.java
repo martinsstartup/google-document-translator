@@ -52,15 +52,15 @@ public class Gdt {
 //		System.setProperty("file.encoding", "UTF-8");
 		String pattern = "gdt%g.log";
 	    int limit = 1000000; // 1 Mb
-	    int numLogFiles = 3;
+	    int numLogFiles = 5;
 	    FileHandler fh = new FileHandler(pattern, limit, numLogFiles,true);
 	    
 	    fh.setFormatter(new SimpleFormatter());
-	    logger.addHandler(fh);
-	    logger.setLevel(Level.INFO);
+	    logger.getParent().addHandler(fh);
+	    logger.getParent().setLevel(Level.INFO);
 	    
 	    logger.log(Level.INFO, "java.runtime.version : "+System.getProperty("java.runtime.version"));
-	    logger.log(Level.INFO, "file.Encoding : "+System.getProperty("file.Encoding"));
+	    logger.log(Level.INFO, "file.encoding : "+System.getProperty("file.encoding"));
 	    logger.log(Level.INFO, "java.vm.vendor : "+System.getProperty("java.vm.vendor"));
 	    logger.log(Level.INFO, "java.vm.name : "+System.getProperty("java.vm.name"));
 	    logger.log(Level.INFO, "user.country : "+System.getProperty("user.country"));
