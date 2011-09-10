@@ -1,10 +1,19 @@
 #summary Google Document Translator Help.
 #labels help,Featured,userguide
 
-= Help =
+= Introduction =
 
-This Help document contains some necessary information 
+Document translation through this software consists of three simple steps
+ # Select the document
+ # Choose the translation language pair
+ # Start translation
 
+We tried to keep the GUI as simple as possible and free from too many options. Still, some operations need explanation in order to perform better translation.
+
+===Translation language selection===
+This is the most important step in your document translation. We will support only those languages which are supported by Google. Selection of invalid language pair will end up in wrong translation.
+<p>If you are sure about the language of your document, please choose the appropriate option from "From:" drop down list. Do not just put "AUTO_DETECT". If your document is mixed with two or more language, google will choose what it will encounter first and you may not get your intended result.</p>
+<p>There is an option in google, "detect language", which we didn't add deliberately. If you are not sure about the languge, choose auto</p>
 
 = Troubleshoot =
 
