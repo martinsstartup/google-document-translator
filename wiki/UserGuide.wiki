@@ -1,6 +1,8 @@
 #summary Google Document Translator Help.
 #labels help,Featured,userguide
 
+For Troubleshoot and FAQ please refer [http://code.google.com/p/google-document-translator/wiki/Troubleshoot Troubleshoot] and [http://code.google.com/p/google-document-translator/wiki/FAQ FAQ]
+
 = Introduction =
 
 Document translation through this software consists of three simple steps
