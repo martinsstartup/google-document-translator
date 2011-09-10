@@ -69,6 +69,10 @@ public class GdtJob extends Thread {
 		this.progressLevel = progressLevel;
 	}
 	
+	public File getFile() {
+		return file;
+	}
+
 	@Override
 	public void run() {
 		isAlreadyTriggered = true;
