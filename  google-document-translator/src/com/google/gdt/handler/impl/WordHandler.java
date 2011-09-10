@@ -39,6 +39,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import com.google.gdt.handler.DocumentHandler;
 import com.google.gdt.ui.ProgressLevel;
+import com.google.gdt.util.TranslatorType;
 
 /**
  * 
@@ -65,7 +66,6 @@ public class WordHandler extends DocumentHandler
 		
 		HWPFDocument hDocument = new HWPFDocument(inputStream);
 		Range range = hDocument.getRange();
-		List<Paragraph> paragraphs = new ArrayList<Paragraph>();
 		
 		pLevel.setTrFileName(outPutFile);
 		pLevel.setValue(0);
@@ -88,13 +88,22 @@ public class WordHandler extends DocumentHandler
 				CharacterRun charRun = paragraph.getCharacterRun(j);
 				String inputText = charRun.text();
 				String translatedTxt = inputText;
+				//in http post method, all key value pairs are seperated with &
+				if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
+					inputText = inputText.replaceAll("&", "and");
 				try
 				{
+					if(inputText.matches("\\s+"))//if the string is empty
+						continue;
 					if(inputText.contains("\n")||inputText.contains("\r")||inputText.contains("\t"))
 					{
-						translatedTxt = inputText.replaceAll("[\\n]", " newline ");
+						translatedTxt = inputText.replaceAll("[\\n]", " gdtnewline ");
+						translatedTxt = translatedTxt.replaceAll("[\\r]", " gdtfromline ");
+						translatedTxt = translatedTxt.replaceAll("[\\t]", " gdttabline ");
 						translatedTxt = translator.translate(translatedTxt);
-						translatedTxt = translatedTxt.replaceAll("newline", "\n");
+						translatedTxt = translatedTxt.replaceAll("gdtnewline", "\n");
+						translatedTxt = translatedTxt.replaceAll("gdtfromline", "\r");
+						translatedTxt = translatedTxt.replaceAll("gdttabline", "\t");
 						if(!inputText.equals(translatedTxt))
 						charRun.replaceText(inputText, translatedTxt);
 					}
@@ -107,7 +116,7 @@ public class WordHandler extends DocumentHandler
 				}
 				catch (Exception e) 
 				{
-					logger.log(Level.SEVERE, "cannot transtlate input text : "+inputText, e);
+					logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText,e);
 				}
 			}
 			count++;

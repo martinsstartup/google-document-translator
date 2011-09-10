@@ -97,12 +97,11 @@ public class PowerpointHandler extends DocumentHandler
 					try
 					{
 						inputText= aRichTextRun.getText();
-						if (inputText.trim().isEmpty()) 
-						{
+						//in http post method, all key value pairs are seperated with &
+						if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
+							inputText = inputText.replaceAll("&", "and");
+						if(inputText.matches("\\s+"))//if the string is empty
 							continue;
-						}
-						inputText = inputText.replaceAll("&", "and");
-						
 						String translatedTxt = inputText;
 						if(inputText.contains("<") || inputText.contains(">"))
 						{

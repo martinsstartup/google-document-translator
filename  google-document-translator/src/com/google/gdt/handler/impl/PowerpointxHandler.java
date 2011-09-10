@@ -20,13 +20,19 @@
 
 package com.google.gdt.handler.impl;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Logger;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.xslf.XSLFSlideShow;
+import org.apache.poi.xslf.usermodel.XSLFSlide;
+import org.apache.xmlbeans.XmlException;
 
 import com.google.gdt.handler.DocumentHandler;
 import com.google.gdt.main.PreferenceModel;
@@ -54,7 +60,19 @@ public class PowerpointxHandler extends DocumentHandler
 	 */
 	@Override
 	public void handle(String inputFile,ProgressLevel pLevel) throws IOException, InvalidFormatException {
+		String outPutFile = getOuputFileName(inputFile);
+		OutputStream outputStream = new FileOutputStream(outPutFile);
+		InputStream inputStream = new FileInputStream(inputFile);
 		
+		try {
+			XSLFSlideShow xslfSlideShow = new XSLFSlideShow(outPutFile);
+		} catch (OpenXML4JException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
