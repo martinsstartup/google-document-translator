@@ -4,6 +4,23 @@
 == Troubleshoot ==
 
 These are some common problem you may face :
- # *I have downloaded and unzipped the software, but nothing is running when I click on Gdt.bat*
+<p>*1. I have downloaded and unzipped the software, but nothing is running when I click on Gdt.bat*
   * *Cause* You may not have java installed in your system. Or even if you have java in your system, it is not accessible from console or it is an older version
-  * *Solution* open a console. In windows, open "Run", type "cmd", press enter. Now in console type java and press enter. If you do not have java installed in your system, it will show command not found or the command is not recognized. please install latest [http://www.oracle.com/technetwork/java/javase/downloads/index.html JRE] and try again. If you are not sure about the version of your JRE, please install the latest version
+  * *Solution* open a console. In windows, open "Run", type "cmd", press enter. Now in console type java and press enter. If you do not have java installed in your system, it will show command not found or the command is not recognized. please install latest [http://www.oracle.com/technetwork/java/javase/downloads/index.html JRE] and try again. If you are not sure about the version of your JRE, please install the latest version</p>
+
+<p>*2. My translated document is in the same language as the original one.*
+  * *Cause* Google supports a set of language, so as we. You may have chosen a language which google does not support.   
+  * *Solution* Go to the [http://translate.google.com google translator page] and try to translate some text from your document. If google supports the translation, then this software should also be able to translate the same. Now, go to Help->Preference and choose HTTP Translator. for details please refer to [http://code.google.com/p/google-document-translator/wiki/UserGuide UserGuide]. Again try to translate the same file. (before translation, you must remove the already translated file by clicking on it and select it again). If this also fails, please feel free to raise a bug with proper information, logs and preferably your document for which the translation failed. We will try to answer as earliest as possible.</p>
+
+
+<p>*3. I cannot open my translated document, it is showing corrupted.*
+   * *Cause* Your file may be too big for our software to process   
+   * *Solution* This software is still in early phase of development and may contain some potential bug. Try to truncate your document in two three parts and then try again with this translation. Please report bug with proper information, logs and preferably your document for which the translation failed.</p> 
+
+<p>*4. My translated document contains all junk characters ??????.*
+   * *Cause* There is a problem in your file encoding or your system does not support the required font or maybe both.  
+   * *Solution* Please check whether your file is UTF8 encoded. Currently we support only UTF8 for text processing. Also, always try to run the software through the batch file (Gdt.bat) which is provided in the release, unless you are an advanced user.</p>
+
+<p>*5. After clicking one Translate button, nothing happens.*
+   * *Cause* There can be several reason behind this. The Translator may be unable to read the input file. The input file may be corrupted or in some unknown format. Also, the Translator may not be able to connect to internet.  
+   * *Solution* If it is a microsoft office document format, check whether you are able to view the file with office software. Check your internet settings. You can also check the logs for probable cause. After checking everything if you feel the software is not operating in the way it should, please do not hesitate to raise a bug. We will handle with priority</p>
