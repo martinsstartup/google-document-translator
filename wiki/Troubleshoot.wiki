@@ -1,5 +1,5 @@
+#summary Troubleshoot
 #labels Featured
-#Troubleshoot
 
 == Troubleshoot ==
 
