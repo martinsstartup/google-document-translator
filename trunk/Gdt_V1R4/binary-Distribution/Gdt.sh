@@ -1,1 +1,0 @@
-java -Dfile.Encoding=UTF8 -jar Gdt.jar
