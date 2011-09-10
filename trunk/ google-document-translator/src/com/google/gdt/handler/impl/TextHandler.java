@@ -83,7 +83,7 @@ public class TextHandler extends DocumentHandler
 			try 
 			{
 				translatedText = inputText;
-				if(null==inputText)
+				if((null==inputText)||inputText.equals(""))
 					continue;
 				if(inputText.matches("\\s+"))//if the string is empty
 					continue;
