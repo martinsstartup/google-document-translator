@@ -220,11 +220,7 @@ public class ProgressLevel extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
-					mainJFrame.getFiles().remove(new File(filename));
-					mainJFrame.getJpanel().remove(ProgressLevel.this);
-					mainJFrame.getJpanel().setPreferredSize(new Dimension((int)mainJFrame.getJpanel().getPreferredSize().getWidth(),
-							mainJFrame.getFiles().size() * (ProgressLevel.HEIGHT + 6)));
-					mainJFrame.getJpanel().updateUI();
+					mainJFrame.removeGdtJobs(new File(filename));
 				}
 			});
 		}

@@ -67,7 +67,7 @@ public class ToComboBox extends JComboBox {
 		// TODO Auto-generated method stub
 		 for (Language language : Language.values()) 
 		 {
-			 if(language.toString()=="")
+			 if(language.toString().equals(""))
 			 {
 				 continue;
 			 }

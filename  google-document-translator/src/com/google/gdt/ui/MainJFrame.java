@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -363,6 +364,21 @@ public class MainJFrame extends javax.swing.JFrame {
 		}
 		jpanel.updateUI();
 	}
+	
+	public void removeGdtJobs(File file) {
+		for(Iterator<GdtJob> jobiterator=gdtJobs.iterator();jobiterator.hasNext();)
+		{
+			GdtJob gjob = jobiterator.next();
+			if(gjob.getFile().equals(file))
+			{
+				jobiterator.remove();
+				files.remove(file);
+			}
+		}
+		jpanel.setPreferredSize(new Dimension((int)jpanel.getPreferredSize().getWidth(),
+				files.size() * (ProgressLevel.HEIGHT + 6)));
+		jpanel.updateUI();
+	}
 
 	private void translateButtonActionPerformed(ActionEvent e) 
     {
@@ -407,6 +423,7 @@ public class MainJFrame extends javax.swing.JFrame {
 	protected void enableInput(boolean b) {
 		// TODO Auto-generated method stub
 		browseButton.setEnabled(b);
+		openMenuItem.setEnabled(b);
 		cancelButton.setEnabled(!b);
 		preferenceMenuItem.setEnabled(b);
 		toLabel.setEnabled(b);
@@ -466,14 +483,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private PreferenceModel preferenceModel;
     private TransferHandler transferHandler;
     // End of variables declaration//GEN-END:variables
-    
-    public List<File> getFiles() {
-		return files;
-	}
-
-    public JPanel getJpanel() {
-		return jpanel;
-	}
 
 }
 
