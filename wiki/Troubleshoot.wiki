@@ -1,0 +1,8 @@
+#summary One-sentence summary of this page.
+
+== Troubleshoot ==
+
+These are some common problem you may face :
+ # I have downloaded and unzipped the software, but nothing is running when I click on Gdt.bat
+ *cause* You may not have java installed in your system. Or even if you have java in your system, it is not accessible from console or it is an older version
+ *solution* open a console. In windows, open "Run", type "cmd", press enter. Now in console type java and press enter. If you do not have java installed in your system, it will show command not found or the command is not recognized. please install latest [http://www.oracle.com/technetwork/java/javase/downloads/index.html JRE] and try again. If you are not sure about the version of your JRE, then also install the latest version of [http://www.oracle.com/technetwork/java/javase/downloads/index.html JRE]
