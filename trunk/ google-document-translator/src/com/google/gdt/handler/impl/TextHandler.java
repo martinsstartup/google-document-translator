@@ -38,6 +38,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import com.google.gdt.handler.DocumentHandler;
 import com.google.gdt.ui.ProgressLevel;
+import com.google.gdt.util.TranslatorType;
 
 /**
  * 
@@ -82,7 +83,13 @@ public class TextHandler extends DocumentHandler
 			try 
 			{
 				translatedText = inputText;
-				if(null!=inputText && (!inputText.equals("")))
+				if(null==inputText)
+					continue;
+				if(inputText.matches("\\s+"))//if the string is empty
+					continue;
+				if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
+					inputText = inputText.replaceAll("&", "and");
+				
 				translatedText = translator.translate(inputText);
 			} 
 			catch (Exception e) 

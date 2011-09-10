@@ -111,27 +111,30 @@ public class ExcelxHandler extends DocumentHandler
 		             {
 						String inputText = cell.getStringCellValue();
 						String translatedTxt = inputText;
+						//in http post method, all key value pairs are seperated with &
+						if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
+							inputText = inputText.replaceAll("&", "and");
 						try
 						{
+							if(inputText.matches("\\s+"))//if the string is empty
+								continue;
 							if(inputText.contains("\n"))
 							{
-								inputText = inputText.replaceAll("[\\n]", " newline ");
+								inputText = inputText.replaceAll("[\\n]", " gdtnewline ");
 								translatedTxt = translator.translate(inputText);
-								translatedTxt = translatedTxt.replaceAll("newline", "\n");
+								translatedTxt = translatedTxt.replaceAll("gdtnewline", "\n");
 							}
 							else
 							{
 								translatedTxt = translator.translate(inputText);
 							}
+							cell.setCellValue(translatedTxt);
 						}
 						catch (Exception e) 
 						{
 							logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText,e);
-							cell.setCellValue(translatedTxt);
 							continue;
 						}
-						
-						cell.setCellValue(translatedTxt);
 		             }
 				}
 				pBarUpdate++;

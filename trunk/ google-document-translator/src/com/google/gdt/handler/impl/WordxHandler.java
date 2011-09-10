@@ -156,6 +156,9 @@ public class WordxHandler extends DocumentHandler
 		{
 			String inputText = xwpfRun.getText(0);
 			String translatedTxt = inputText;
+			//in http post method, all key value pairs are seperated with &
+			if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
+				inputText = inputText.replaceAll("&", "and");
 			try
 			{
 				translatedTxt = translator.translate(inputText);
