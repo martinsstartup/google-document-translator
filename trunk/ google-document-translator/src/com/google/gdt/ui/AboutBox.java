@@ -97,7 +97,7 @@ public class AboutBox extends javax.swing.JDialog {
         getContentPane().add(versionLabel);
         versionLabel.setBounds(165, 135, 92, 14);
 
-        appVersionLabel.setText("V1R4"); // NOI18N
+        appVersionLabel.setText("V1R5"); // NOI18N
         appVersionLabel.setName("appVersionLabel"); // NOI18N
         getContentPane().add(appVersionLabel);
         appVersionLabel.setBounds(263, 135, 36, 14);
@@ -108,7 +108,7 @@ public class AboutBox extends javax.swing.JDialog {
         getContentPane().add(vendorLabel);
         vendorLabel.setBounds(165, 155, 43, 14);
 
-        appVendorLabel.setText("code.google.com"); // NOI18N
+        appVendorLabel.setText("Sanmoy Ray"); // NOI18N
         appVendorLabel.setName("appVendorLabel"); // NOI18N
         getContentPane().add(appVendorLabel);
         appVendorLabel.setBounds(263, 155, 120, 14);
