@@ -13,11 +13,10 @@ We tried to keep the GUI as simple as possible and free from too many options. S
 ===Translation language selection===
 This is the most important step in your document translation. We will support only those languages which are supported by Google. Selection of invalid language pair will end up in wrong translation.
 <p>If you are sure about the language of your document, please choose the appropriate option from "From:" drop down list. Do not just put "AUTO_DETECT". If your document is mixed with two or more language, google will choose what it will encounter first and you may not get your intended result.</p>
-<p>There is an option in google, "detect language", which we didn't add deliberately. If you are not sure about the languge, choose auto</p>
+<p>There is an option in google, "detect language", which we didn't add deliberately. If you are not sure about the languge, choose "auto"</p>
 
-= Troubleshoot =
+===Translator type selection===
+In the Preference dialog (Help->Preference), you can choose between "HTTP" translator and "AJAX" Translator. HTTP translator uses http post method and parse the response for translation. This is the way how you use google translator in your browser. AJAX translator uses google api for translation. This is an advanced form of service, fast and reliable. But, only problem is, google will stop this service after 31st December 2011 and you need to pay if you still want to use this. Use HTTP translator only for academic purpose. We will release a paid version of AJAX translator soon.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+===Proxy selection===
+If you want to configure the proxy setting, go to Help->Preference. Currently we do not support proxy authentication.
