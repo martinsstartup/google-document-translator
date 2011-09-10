@@ -1,12 +1,12 @@
 #summary Google Document Translator Help.
 #labels help,Featured,userguide
 
-= Introduction =
+= Help =
 
-Add your content here.
+This Help document contains some necessary information 
 
 
-= Details =
+= Troubleshoot =
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
