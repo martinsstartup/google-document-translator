@@ -115,6 +115,7 @@ public class MainJFrame extends javax.swing.JFrame {
         helpMenu = new javax.swing.JMenu();
         preferenceMenuItem = new javax.swing.JMenuItem();
         helpMenuItem = new javax.swing.JMenuItem();
+        troubleMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
         jpanel = new JPanel();
         fromLabel = new JLabel();
@@ -250,6 +251,25 @@ public class MainJFrame extends javax.swing.JFrame {
 				preferenceButtonActionPerformed(e);
 			}
 		});
+        
+        troubleMenuItem.setText("Troubleshoot");
+        troubleMenuItem.setMnemonic('t');
+        troubleMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				java.net.URI uri;
+				try {
+					uri = new java.net.URI("http://code.google.com/p/google-document-translator/wiki/Troubleshoot");
+					Desktop.getDesktop().browse(uri);
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+				} catch (IOException e2) {
+					logger.log(Level.SEVERE, "cannot open browser", e2);
+				}
+			}
+		});
+        helpMenu.add(troubleMenuItem);
         
         helpMenuItem.setText("GDT-Help");
         helpMenuItem.setMnemonic('h');
@@ -468,6 +488,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem preferenceMenuItem;
     private javax.swing.JMenuItem helpMenuItem;
+    private javax.swing.JMenuItem troubleMenuItem;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JScrollPane jScrollPane1;
@@ -486,58 +507,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
 }
 
-//class GdtTransferHandler extends TransferHandler
-//{
-//	
-//	private final Set<String> extnSet = new HashSet<String>();
-//	
-//	public GdtTransferHandler() {
-//		// TODO Auto-generated constructor stub
-//		extnSet.add("doc");
-//		extnSet.add("xls");
-//		extnSet.add("ppt");
-//		extnSet.add("txt");
-//		extnSet.add("pdf");
-//		extnSet.add("docx");
-//		extnSet.add("xlsx");
-////		extnSet.add("pptx");
-//	}
-//	
-//	@Override
-//	public boolean canImport(TransferSupport support)
-//	{
-//		Transferable t = support.getTransferable();
-//		try 
-//		{
-//            List<File> fileList =
-//                (List<File>)t.getTransferData(DataFlavor.javaFileListFlavor);
-//
-//            for (File file : fileList)
-//            {
-//            	if(!extnSet.contains(getFileExtension(file)))
-//            	{
-//            		return false;
-//            	}
-//            }
-//        } 
-//		catch (UnsupportedFlavorException e) 
-//        {
-//            return false;
-//        } 
-//		catch (IOException e) 
-//        {
-//            return false;
-//        }
-//
-//        return true;
-//	}
-//	
-//	private String getFileExtension(File file)
-//	{
-//		int dot = file.getName().lastIndexOf(".");
-//		return file.getName().substring(dot);
-//	}
-//}
 
 class GdtDropTargetListener extends DropTargetAdapter
 {
