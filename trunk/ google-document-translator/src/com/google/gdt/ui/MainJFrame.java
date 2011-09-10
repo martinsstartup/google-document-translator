@@ -108,9 +108,10 @@ public class MainJFrame extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        openMenuItem = new javax.swing.JMenuItem();
         recentFileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
+        helpMenu = new javax.swing.JMenu();
         preferenceMenuItem = new javax.swing.JMenuItem();
         helpMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -195,6 +196,18 @@ public class MainJFrame extends javax.swing.JFrame {
 
         fileMenu.setText("File");
         fileMenu.setMnemonic('F');
+        
+        openMenuItem.setText("Open");
+        openMenuItem.setMnemonic('o');
+        fileMenu.add(openMenuItem);
+        openMenuItem.addActionListener(new ActionListener()
+        {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				browseButtonActionPerformed(e);
+			}
+        });
 
         recentFileMenu.setText("Recent");
         recentFileMenu.setMnemonic('R');
@@ -222,12 +235,12 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jMenuBar.add(fileMenu);
 
-        editMenu.setText("Edit");
-        editMenu.setMnemonic('e');
+        helpMenu.setText("Help");
+        helpMenu.setMnemonic('h');
 
         preferenceMenuItem.setText("Preference");
         preferenceMenuItem.setMnemonic('p');
-        editMenu.add(preferenceMenuItem);
+        helpMenu.add(preferenceMenuItem);
         preferenceMenuItem.addActionListener(new ActionListener()
         {
 			@Override
@@ -254,7 +267,7 @@ public class MainJFrame extends javax.swing.JFrame {
 				}
 			}
 		});
-        editMenu.add(helpMenuItem);
+        helpMenu.add(helpMenuItem);
 
         aboutMenuItem.setText("About");
         aboutMenuItem.setMnemonic('a');
@@ -269,9 +282,9 @@ public class MainJFrame extends javax.swing.JFrame {
 				aboutBox.setVisible(true);
 			}
 		});
-        editMenu.add(aboutMenuItem);
+        helpMenu.add(aboutMenuItem);
 
-        jMenuBar.add(editMenu);
+        jMenuBar.add(helpMenu);
 
         setJMenuBar(jMenuBar);
         
@@ -432,9 +445,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton translateButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu editMenu;
+    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu recentFileMenu;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem preferenceMenuItem;
     private javax.swing.JMenuItem helpMenuItem;
     private javax.swing.JMenuItem aboutMenuItem;
