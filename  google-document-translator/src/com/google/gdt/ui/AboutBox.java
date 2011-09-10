@@ -108,7 +108,7 @@ public class AboutBox extends javax.swing.JDialog {
         getContentPane().add(vendorLabel);
         vendorLabel.setBounds(165, 155, 43, 14);
 
-        appVendorLabel.setText("Nascent Engineering"); // NOI18N
+        appVendorLabel.setText("code.google.com"); // NOI18N
         appVendorLabel.setName("appVendorLabel"); // NOI18N
         getContentPane().add(appVendorLabel);
         appVendorLabel.setBounds(263, 155, 120, 14);
