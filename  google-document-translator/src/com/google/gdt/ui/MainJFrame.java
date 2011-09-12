@@ -475,6 +475,9 @@ public class MainJFrame extends javax.swing.JFrame {
 		return jtextFieldString;
 	}
 
+	public JPanel getJpanel() {
+		return jpanel;
+	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     //GUI variables
