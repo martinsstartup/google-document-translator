@@ -221,6 +221,7 @@ public class ProgressLevel extends JPanel {
 				public void actionPerformed(ActionEvent e) 
 				{
 					mainJFrame.removeGdtJobs(new File(filename));
+					mainJFrame.getJpanel().remove(ProgressLevel.this);
 				}
 			});
 		}
