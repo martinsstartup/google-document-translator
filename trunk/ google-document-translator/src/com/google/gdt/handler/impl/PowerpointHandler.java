@@ -83,50 +83,40 @@ public class PowerpointHandler extends DocumentHandler
 			TextRun[] textRuns = aSlide.getTextRuns();
 			for (TextRun aTextRun : textRuns) 
 			{
-				RichTextRun[] richTextRuns = aTextRun.getRichTextRuns();
-				for (RichTextRun aRichTextRun : richTextRuns) 
+				if(isInterrupted)
+				 {
+					 outputStream.close();
+					 new File(outputFile).delete();
+					 pLevel.setString("cancelled");
+					 return;
+				 }
+				String inputText = "";
+				try
 				{
-					if(isInterrupted)
-					 {
-						 outputStream.close();
-						 new File(outputFile).delete();
-						 pLevel.setString("cancelled");
-						 return;
-					 }
-					String inputText = "";
-					try
-					{
-						inputText= aRichTextRun.getText();
-						//in http post method, all key value pairs are seperated with &
-						if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
-							inputText = inputText.replaceAll("&", "and");
-						if(inputText.matches("\\s+"))//if the string is empty
-							continue;
-						String translatedTxt = inputText;
-						if(inputText.contains("<") || inputText.contains(">"))
-						{
-							System.out.println("do nothing");
-							logger.log(Level.INFO,"file contains < or >");
-						}
-						else if(inputText.contains("\n"))
-						{
-							inputText = inputText.replaceAll("[\\n]", " newline ");
-							translatedTxt = translator.translate(inputText);
-							translatedTxt = translatedTxt.replaceAll("newline", "\n");
-						}
-						else
-						{
-							translatedTxt = translator.translate(inputText);
-						}
-						aRichTextRun.setText(translatedTxt);
-					}
-					catch (Exception e) 
-					{
-						logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText,e);
-//						aRichTextRun.setText(translatedTxt);
+					inputText= aTextRun.getText();
+					//in http post method, all key value pairs are seperated with &
+					if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
+						inputText = inputText.replaceAll("&", "and");
+					if(inputText.matches("\\s+"))//if the string is empty
 						continue;
+					String translatedTxt = inputText;
+					if(inputText.contains("\n"))
+					{
+						inputText = inputText.replaceAll("[\\n]", " newline ");
+						translatedTxt = translator.translate(inputText);
+						translatedTxt = translatedTxt.replaceAll("newline", "\n");
 					}
-					
+					else
+					{
+						translatedTxt = translator.translate(inputText);
+					}
+					aTextRun.setText(translatedTxt);
+				}
+				catch (Exception e) 
+				{
+					logger.log(Level.SEVERE, "Input File : "+inputFile+" cannot translate the text : "+inputText,e);
+//						aRichTextRun.setText(translatedTxt);
+					continue;
 				}
 			}
 			pBarUpdate++;
