@@ -22,7 +22,6 @@ package com.google.gdt.handler.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,16 +31,11 @@ import java.util.logging.Logger;
 
 import org.apache.poi.hslf.model.Slide;
 import org.apache.poi.hslf.model.TextRun;
-import org.apache.poi.hslf.usermodel.RichTextRun;
 import org.apache.poi.hslf.usermodel.SlideShow;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import com.google.gdt.handler.DocumentHandler;
-import com.google.gdt.main.PreferenceModel;
 import com.google.gdt.ui.ProgressLevel;
-import com.google.gdt.util.AjaxTranslator;
-import com.google.gdt.util.HttpTranslator;
-import com.google.gdt.util.Translator;
 import com.google.gdt.util.TranslatorType;
 
 /**
