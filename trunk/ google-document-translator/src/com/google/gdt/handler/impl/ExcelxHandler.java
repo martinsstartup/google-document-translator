@@ -97,7 +97,7 @@ public class ExcelxHandler extends DocumentHandler
 					if(isInterrupted)
 					 {
 						 outputStream.close();
-						 new File(outputFile).delete();
+						 new File(outPutFile).delete();
 						 pLevel.setString("cancelled");
 						 return;
 					 }
