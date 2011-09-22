@@ -21,9 +21,6 @@
 package com.google.gdt.main;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
