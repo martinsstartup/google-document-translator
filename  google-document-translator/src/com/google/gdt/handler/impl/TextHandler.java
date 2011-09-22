@@ -76,7 +76,7 @@ public class TextHandler extends DocumentHandler
 			{
 				br.close();
 				bw.close();
-				new File(outputFile).delete();
+				new File(outPutFile).delete();
 				pLevel.setString("cancelled");
 				return;
 			}
