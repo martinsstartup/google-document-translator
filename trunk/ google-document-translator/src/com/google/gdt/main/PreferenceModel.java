@@ -43,6 +43,11 @@ import com.google.gdt.util.TranslatorType;
  */
 public class PreferenceModel implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2122592331376649950L;
+
 	private static final String PREFERENCE_PATH = System.getProperty("user.home") +"/.gdtPreference";
 	
 	private static PreferenceModel preferenceModel;
@@ -83,7 +88,7 @@ public class PreferenceModel implements Serializable{
 					if((null!=preferenceModel.getProxyURL()) && (null!=preferenceModel.getProxyPort()))
 					{
 						System.setProperty("http.proxyHost", preferenceModel.getProxyURL());
-						System.setProperty("http.proxyPort", new Integer(preferenceModel.getProxyPort()).toString());
+						System.setProperty("http.proxyPort", Integer.valueOf(preferenceModel.getProxyPort()).toString());
 					}
 				} 
 				catch (FileNotFoundException e) 
