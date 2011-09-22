@@ -21,15 +21,10 @@
 package com.google.gdt.handler;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
 import com.google.gdt.main.PreferenceModel;
-import com.google.gdt.ui.ProgressLevel;
 import com.google.gdt.util.AjaxTranslator;
 import com.google.gdt.util.HttpTranslator;
 import com.google.gdt.util.Translator;
@@ -47,11 +42,6 @@ public abstract class DocumentHandler implements Handler
 	 * boolean to check whether the handler is interrupted
 	 */
 	public boolean isInterrupted = false;
-	
-	/**
-	 * output file for the translated document
-	 */
-	public String outputFile;
 	
 	/**
 	 * translator instance, depends on the  {@link TranslatorType}
@@ -122,7 +112,7 @@ public abstract class DocumentHandler implements Handler
 		
 		String extension = inputFile.substring(inputFile.lastIndexOf("."));
 		String rawFilename = inputFile.substring(0, inputFile.lastIndexOf("."));
-		outputFile = rawFilename+"_"+preferenceModel.getToLanguage().toString()+extension;
+		String outputFile = rawFilename+"_"+preferenceModel.getToLanguage().toString()+extension;
 		
 		logger.log(Level.INFO, "outputFile : "+outputFile);
 		
