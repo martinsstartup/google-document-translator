@@ -37,9 +37,9 @@ public class GdtFileChooser extends JFileChooser {
 	/*
 	 * 
 	 */
-	private static final String DESCRIPTION = ".xls, .ppt, .doc, .xlsx, .docx, .txt";
+	private final String DESCRIPTION = ".xls, .ppt, .doc, .xlsx, .docx, .pptx, .txt";
 	
-	private static final String FILTER[] = {"xls","ppt","doc","xlsx","docx","txt"};
+	private final String FILTER[] = {"xls","ppt","doc","xlsx","docx","pptx","txt"};
 	
 	private static final long serialVersionUID = -5800919218517480139L;
 	
@@ -62,6 +62,7 @@ public class GdtFileChooser extends JFileChooser {
 		
 		addChoosableFileFilter(fileFilter);
 		setMultiSelectionEnabled(true);
+		logger.finest("FileChooser is called");
 	}
 }
 
