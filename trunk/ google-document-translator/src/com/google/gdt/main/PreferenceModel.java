@@ -149,7 +149,7 @@ public class PreferenceModel implements Serializable{
 				proxyPort=new Integer(System.getProperty("http.proxyPort"));
 			}
 			isProxyEnable=false;
-			translatorType = TranslatorType.AJAX;
+			translatorType = TranslatorType.HTTP;
 			fromLanguage=Language.AUTO_DETECT;
 			toLanguage=Language.ENGLISH;
 			recentFiles = new ArrayList<String>(4);
