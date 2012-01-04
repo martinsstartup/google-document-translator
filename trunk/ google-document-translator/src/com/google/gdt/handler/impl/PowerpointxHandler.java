@@ -106,6 +106,9 @@ public class PowerpointxHandler extends DocumentHandler
 						try
 						{
 							inputText = node.getText();
+							if ((null == inputText)
+									|| (inputText.trim().equals("")))
+								continue;
 							String translatedText = translator.translate(inputText);
 							node.setText(translatedText);
 						}

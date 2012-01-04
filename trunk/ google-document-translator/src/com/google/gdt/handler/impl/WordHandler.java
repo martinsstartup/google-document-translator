@@ -85,6 +85,9 @@ public class WordHandler extends DocumentHandler
 				}
 				CharacterRun charRun = paragraph.getCharacterRun(j);
 				String inputText = charRun.text();
+				if ((null == inputText)
+						|| (inputText.trim().equals("")))
+					continue;
 				String translatedTxt = inputText;
 				//in http post method, all key value pairs are seperated with &
 				if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
