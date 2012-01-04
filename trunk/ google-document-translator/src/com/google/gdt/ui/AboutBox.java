@@ -96,7 +96,7 @@ public class AboutBox extends javax.swing.JDialog {
         getContentPane().add(versionLabel);
         versionLabel.setBounds(165, 135, 92, 14);
 
-        appVersionLabel.setText("V1R7"); // NOI18N
+        appVersionLabel.setText("V1R8"); // NOI18N
         appVersionLabel.setName("appVersionLabel"); // NOI18N
         getContentPane().add(appVersionLabel);
         appVersionLabel.setBounds(263, 135, 36, 14);
