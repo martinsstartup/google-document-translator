@@ -83,10 +83,13 @@ public class TextHandler extends DocumentHandler
 			try 
 			{
 				translatedText = inputText;
-				if((null==inputText)||inputText.equals(""))
+				if((null==inputText)||inputText.trim().equals(""))
+				{
+					bw.write(translatedText+LINE_SEPERATOR);
+					count++;
+					pLevel.setValue(count);
 					continue;
-				if(inputText.matches("\\s+"))//if the string is empty
-					continue;
+				}
 				if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
 					inputText = inputText.replaceAll("&", "and");
 				
