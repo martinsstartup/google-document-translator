@@ -20,6 +20,8 @@
 
 package com.google.gdt.handler.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,6 +31,9 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -37,6 +42,10 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
 
 import com.google.gdt.handler.DocumentHandler;
 import com.google.gdt.ui.ProgressLevel;
@@ -45,13 +54,14 @@ import com.google.gdt.util.TranslatorType;
 /**
  * 
  * @author Sanmoy
- *
+ * 
  */
-public class WordxHandler extends DocumentHandler
-{
+public class WordxHandler extends DocumentHandler {
 
 	private static Logger logger = Logger.getLogger("WordxHandler.class");
-	
+
+	private final int BUFFER = 2048;
+
 	/**
 	 * 
 	 * @param inputFile
@@ -60,113 +70,96 @@ public class WordxHandler extends DocumentHandler
 	 * @throws InvalidFormatException
 	 */
 	@Override
-	public void handle(String inputFile,ProgressLevel pLevel) throws IOException, InvalidFormatException 
-	{
+	public void handle(String inputFile, ProgressLevel pLevel)
+			throws IOException, InvalidFormatException {
 		String outPutFile = getOuputFileName(inputFile);
-		OutputStream outputStream = new FileOutputStream(outPutFile);
-		InputStream inputStream = new FileInputStream(inputFile);
-		
-		XWPFDocument xwpfDocument = new XWPFDocument(inputStream);
-		
-		List<XWPFParagraph> paragraphs = xwpfDocument.getParagraphs();
-		int paragraphCount = paragraphs.size();
-		
-		pLevel.setTrFileName(outPutFile);
-		pLevel.setValue(0);
-		pLevel.setStringPainted(true);
-		
-		List<XWPFTable> xwpftables = xwpfDocument.getTables();
-		int count=0;
-		//start translating table 
-		int tablecount = 0;
-		for(XWPFTable xwpfTable:xwpftables)
+		ZipInputStream zis = new ZipInputStream(new FileInputStream(inputFile));
+		ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(
+				outPutFile));
+		ZipEntry zipEntry;
+		int wordCount = 0;
+		int pBarUpdate = 0;
+		while ((zipEntry = zis.getNextEntry()) != null) 
 		{
-			boolean traverseTable = false;
-			count=0;
-			tablecount++;
-			pLevel.setString("Translating table : "+tablecount);
-			
-			List<XWPFTableRow> xwpfTableRows = xwpfTable.getRows();
-			for(XWPFTableRow xwpfTableRow:xwpfTableRows)
+			if (zipEntry.getName().equals("word/document.xml")) 
 			{
-				if(!traverseTable)
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				byte[] buffer = new byte[BUFFER];
+				int len;
+				while ((len = zis.read(buffer)) > 0) 
 				{
-					pLevel.setMaxValue(xwpfTableRows.size());
-					traverseTable=true;
+					baos.write(buffer, 0, len);
 				}
-				
-				List<XWPFTableCell> xwpfTableCells = xwpfTableRow.getTableCells();
-				
-				for(XWPFTableCell xwpfTableCell:xwpfTableCells)
+				baos.flush();
+
+				InputStream clone = new ByteArrayInputStream(baos.toByteArray());
+				SAXReader saxReader = new SAXReader();
+				Document doc = null;
+				try 
 				{
-					for(XWPFParagraph xParagraph:xwpfTableCell.getParagraphs())
+					doc = saxReader.read(clone);
+					List<Node> nodes = doc.selectNodes("//w:t");
+					wordCount = nodes.size();
+					pLevel.setValue(0);
+					pLevel.setMaxValue(wordCount);
+					pLevel.setStringPainted(true);
+					pLevel.setTrFileName(outPutFile);
+					pBarUpdate = 0;
+					for (Node node : nodes) 
 					{
-						if(isInterrupted)
-						 {
-							 outputStream.close();
-							 new File(outPutFile).delete();
-							 pLevel.setString("cancelled");
-							 return;
-						 }
-						
-						translateParagraph(xParagraph);
+						if (isInterrupted) 
+						{
+							zis.close();
+							zout.close();
+							new File(outPutFile).delete();
+							pLevel.setString("cancelled");
+							return;
+						}
+						String inputText = "";
+						try 
+						{
+							inputText = node.getText();
+							pBarUpdate++;
+							pLevel.setValue(pBarUpdate);
+							if ((null == inputText)
+									|| (inputText.trim().equals("")))
+								continue;
+							String translatedText = translator
+									.translate(inputText);
+							node.setText(translatedText);
+						} 
+						catch (Exception e) 
+						{
+							logger.log(Level.SEVERE,
+									"Translation fails for the inputText : "
+											+ inputText, e);
+						}
 					}
+				} 
+				catch (DocumentException e)
+				{
+					logger.log(Level.SEVERE, "cannot parse slide", e);
 				}
-				count++;
-				pLevel.setValue(count);
+
+				zout.putNextEntry(new ZipEntry(zipEntry.getName()));
+				byte data[] = doc.asXML().getBytes("UTF8");
+				zout.write(data, 0, data.length);
 			}
-			pLevel.setValue(0);
+			else 
+			{
+				zout.putNextEntry(new ZipEntry(zipEntry.getName()));
+				int len;
+				byte data[] = new byte[BUFFER];
+				while ((len = zis.read(data, 0, BUFFER)) != -1)
+				{
+					zout.write(data, 0, len);
+				}
+			}
 		}
-		//table translation complete, start translating remaining document
-		pLevel.setString(null);
-		pLevel.setValue(0);
-		pLevel.setMaxValue(paragraphCount);
-		count = 0;
-		
-		for(XWPFParagraph xParagraph:paragraphs)
-		{
-			if(isInterrupted)
-			 {
-				 outputStream.close();
-				 new File(outPutFile).delete();
-				 pLevel.setString("cancelled");
-				 return;
-			 }
-			translateParagraph(xParagraph);
-			count++;
-			pLevel.setValue(count);
-		}
-		xwpfDocument.write(outputStream);
-		outputStream.close();
+		zis.close();
+		zout.close();
+		pLevel.setValue(wordCount);
 		pLevel.setString("done");
-	}
-	
-	/**
-	 * translate paragraph by paragraph
-	 * @param xParagraph
-	 */
-	private void translateParagraph(XWPFParagraph xParagraph)
-	{
-		for(XWPFRun xwpfRun : xParagraph.getRuns())
-		{
-			String inputText = xwpfRun.getText(0);
-			String translatedTxt = inputText;
-			//in http post method, all key value pairs are seperated with &
-			if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
-				inputText = inputText.replaceAll("&", "and");
-			try
-			{
-				translatedTxt = translator.translate(inputText);
-			}
-			catch (Exception e) 
-			{
-				logger.log(Level.SEVERE, " cannot translate the text : "+inputText,e);
-				xwpfRun.setText(translatedTxt, 0);
-				continue;
-			}
-			
-			xwpfRun.setText(translatedTxt+" ", 0);
-		}
 	}
 
 }
