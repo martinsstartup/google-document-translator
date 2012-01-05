@@ -358,7 +358,7 @@ public class MainJFrame extends javax.swing.JFrame {
 	/*
 	 * This method will be a common method for filechooser and DnD action, 
 	 */
-	private void createGdtJobs(File[] selectedFiles) {
+	protected void createGdtJobs(File[] selectedFiles) {
 		// TODO Auto-generated method stub
 		for(File file : selectedFiles)
 		{
@@ -508,60 +508,4 @@ public class MainJFrame extends javax.swing.JFrame {
     private TransferHandler transferHandler;
     // End of variables declaration//GEN-END:variables
 
-}
-
-
-class GdtDropTargetListener extends DropTargetAdapter
-{
-	private final Set<String> extnSet = new HashSet<String>();
-	
-	public GdtDropTargetListener() {
-		// TODO Auto-generated constructor stub
-		extnSet.add("doc");
-		extnSet.add("xls");
-		extnSet.add("ppt");
-		extnSet.add("txt");
-		extnSet.add("pdf");
-		extnSet.add("docx");
-		extnSet.add("xlsx");
-//		extnSet.add("pptx");
-	}
-	@Override
-	public void dragEnter(DropTargetDragEvent dtde) {
-		// TODO Auto-generated method stub
-//		dtde.acc
-		Transferable transferable = dtde.getTransferable();
-		try 
-		{
-            List<File> fileList =
-                (List<File>)transferable.getTransferData(DataFlavor.javaFileListFlavor);
-
-            for (File file : fileList)
-            {
-            	if(!extnSet.contains(getFileExtension(file)))
-            	{
-            		dtde.rejectDrag();
-            	}
-            }
-        } 
-		catch (UnsupportedFlavorException e) 
-        {
-			dtde.rejectDrag();
-        } 
-		catch (IOException e) 
-        {
-			dtde.rejectDrag();
-        }
-		
-	}
-	@Override
-	public void drop(DropTargetDropEvent dtde) {
-		// TODO Auto-generated method stub
-		
-	}
-	private String getFileExtension(File file)
-	{
-		int dot = file.getName().lastIndexOf(".");
-		return file.getName().substring(dot);
-	}
 }
