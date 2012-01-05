@@ -24,6 +24,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Point;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -37,6 +38,7 @@ import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -55,6 +57,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ToolTipManager;
 import javax.swing.TransferHandler;
 
 import com.google.gdt.main.GdtJob;
@@ -103,7 +107,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane1 = new GdtScrollPane();
         browseButton = new javax.swing.JButton();
         translateButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -138,7 +142,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane1.setBounds(10, 60, 650, 300);
         jScrollPane1.setViewportView(jpanel);
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
-        getContentPane().add(jScrollPane1);
+        jScrollPane1.setToolTipText("drop files here to translate");
+		ToolTipManager.sharedInstance().registerComponent(jScrollPane1);
+		getContentPane().add(jScrollPane1);
         
         fromLabel.setBounds(10, 20, 35, 25);
         fromLabel.setText("From:");
@@ -508,4 +514,14 @@ public class MainJFrame extends javax.swing.JFrame {
     private TransferHandler transferHandler;
     // End of variables declaration//GEN-END:variables
 
+}
+
+class GdtScrollPane extends JScrollPane
+{
+	@Override
+	public Point getToolTipLocation(MouseEvent event) {
+		double xpos = event.getPoint().getX();
+		double ypos = event.getPoint().getY();
+		return new Point((int)xpos+10, (int)ypos);
+	}
 }
