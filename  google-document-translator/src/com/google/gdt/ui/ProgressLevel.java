@@ -23,6 +23,7 @@ package com.google.gdt.ui;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -53,8 +54,8 @@ public class ProgressLevel extends JPanel {
 	
 	private static final int DISPLAYLENGTH = 95;
 	
-	private JProgressBar jBar = new JProgressBar();
-	private JLabel jLabel = new JLabel();
+	private JProgressBar jBar = new GdtProgressBar();
+	private JLabel jLabel = new GdtLabel();
 	
 	private String filename;
 	private String trFileName;
@@ -226,5 +227,25 @@ public class ProgressLevel extends JPanel {
 			});
 		}
 
+	}
+}
+
+class GdtLabel extends JLabel
+{
+	@Override
+	public Point getToolTipLocation(MouseEvent event) {
+		double xpos = event.getPoint().getX();
+		double ypos = event.getPoint().getY();
+		return new Point((int)xpos+10, (int)ypos);
+	}
+}
+
+class GdtProgressBar extends JProgressBar
+{
+	@Override
+	public Point getToolTipLocation(MouseEvent event) {
+		double xpos = event.getPoint().getX();
+		double ypos = event.getPoint().getY();
+		return new Point((int)xpos+10, (int)ypos);
 	}
 }
