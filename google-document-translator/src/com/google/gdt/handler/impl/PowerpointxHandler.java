@@ -91,7 +91,7 @@ public class PowerpointxHandler extends DocumentHandler
 				try 
 				{
 					doc = saxReader.read(clone);
-					List<Node> nodes = doc.selectNodes("//p:sld/p:cSld/p:spTree/p:sp/p:txBody/a:p/a:r/a:t");
+					List<Node> nodes = doc.selectNodes("//a:t");
 					for(Node node : nodes)
 					{
 						if (isInterrupted) 
