@@ -1,0 +1,1 @@
+start javaw -splash:resource/img/About.png -Dfile.encoding=UTF8 -jar Gdt.jar
