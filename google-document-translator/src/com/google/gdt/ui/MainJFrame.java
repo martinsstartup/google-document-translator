@@ -139,6 +139,7 @@ public class MainJFrame extends javax.swing.JFrame {
         ImageIcon preferenceIcon = new ImageIcon("resource/img/preference.png");
         ImageIcon troubleIcon = new ImageIcon("resource/img/trouble.png");
         ImageIcon recentIcon = new ImageIcon("resource/img/recent.png");
+        ImageIcon fileIcon = new ImageIcon("resource/img/file.png");
         
         new DropTarget(this, new GdtDropTargetListener());
 
@@ -219,6 +220,7 @@ public class MainJFrame extends javax.swing.JFrame {
 		});
 
         fileMenu.setText("File");
+        fileMenu.setIcon(fileIcon);
         fileMenu.setMnemonic('F');
         
         openMenuItem.setText("Open");
@@ -263,6 +265,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenuBar.add(fileMenu);
 
         helpMenu.setText("Help");
+        helpMenu.setIcon(helpIcon);
         helpMenu.setMnemonic('h');
 
         preferenceMenuItem.setText("Preference");
