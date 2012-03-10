@@ -27,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,6 +41,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 import com.google.gdt.main.PreferenceModel;
+import com.tecnick.htmlutils.htmlentities.HTMLEntities;
 
 /**
  * Http translator uses http post method to send the content tobetranslated, and 
@@ -99,13 +101,15 @@ public class HttpTranslator implements Translator{
 		
 		if(null==inputText||inputText.equals(""))
 			return translatedText;
+		
+		inputText = URLEncoder.encode(inputText, "UTF-8");
 		 
 		String body = ametadata + inputText
 				+ pmetadata;
 		
 		String response = doPost(body);
 		translatedText = parseResponse(response);
-		return translatedText;
+		return HTMLEntities.unhtmlentities(translatedText);
 	}
 	
 	/**
