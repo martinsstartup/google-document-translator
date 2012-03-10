@@ -66,8 +66,17 @@ public abstract class DocumentHandler implements Handler
 		preferenceModel = PreferenceModel.getInstance();
 		if(TranslatorType.AJAX==preferenceModel.getTranslatorType())
 		{
-			translator = new AjaxTranslator();
-			logger.log(Level.INFO, "TranslatorType : AJAX");
+			String apikey = preferenceModel.getApiKey();
+			if(apikey==null||apikey=="")
+			{
+				translator = new HttpTranslator();
+				logger.log(Level.INFO, "api key is invalid, so set to HTTP");
+			}
+			else
+			{
+				translator = new AjaxTranslator();
+				logger.log(Level.INFO, "TranslatorType : AJAX");
+			}
 		}
 		else
 		{
