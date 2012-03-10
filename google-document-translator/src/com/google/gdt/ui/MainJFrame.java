@@ -24,6 +24,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
@@ -58,6 +59,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.TransferHandler;
 
@@ -127,11 +129,19 @@ public class MainJFrame extends javax.swing.JFrame {
         fromComboBox = new FromComboBox();
         toComboBox = new ToComboBox();
         
-//        transferHandler = new GdtTransferHandler();
-//        this.setTransferHandler(transferHandler);
+        ImageIcon browseIcon = new ImageIcon("resource/img/browse.png");
+        ImageIcon cancelIcon = new ImageIcon("resource/img/cancel.png");
+        ImageIcon translateIcon = new ImageIcon("resource/img/translate.png");
+        ImageIcon exitIcon = new ImageIcon("resource/img/exit.png");
+        ImageIcon helpIcon = new ImageIcon("resource/img/help.png");
+        ImageIcon aboutIcon = new ImageIcon("resource/img/about_ico.png");
+        ImageIcon openIcon = new ImageIcon("resource/img/browse.png");
+        ImageIcon preferenceIcon = new ImageIcon("resource/img/preference.png");
+        ImageIcon troubleIcon = new ImageIcon("resource/img/trouble.png");
+        ImageIcon recentIcon = new ImageIcon("resource/img/recent.png");
+        
         new DropTarget(this, new GdtDropTargetListener());
 
-//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         
         jpanel.setPreferredSize(new Dimension(630, 200));
@@ -161,8 +171,10 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().add(toComboBox);
         
         browseButton.setText("Browse");
-        browseButton.setBounds(350, 20, 90, 25);
+        browseButton.setBounds(346, 20, 91, 25);
         browseButton.setMnemonic('b');
+        browseButton.setIcon(browseIcon);
+        browseButton.setMargin(new Insets(1,1,1,1));  
         getContentPane().add(browseButton);
         browseButton.addActionListener(new ActionListener()
         {
@@ -175,8 +187,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         translateButton.setText("Translate");
         translateButton.setEnabled(false);
+        translateButton.setIcon(translateIcon);
+        translateButton.setMargin(new Insets(1,1,1,1));
+        translateButton.setBounds(454, 20, 95, 25);
         getContentPane().add(translateButton);
-        translateButton.setBounds(460, 20, 90, 25);
         translateButton.addActionListener(new ActionListener()
         {
 			@Override
@@ -188,8 +202,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         cancelButton.setText("Cancel");
         cancelButton.setEnabled(false);
+        cancelButton.setIcon(cancelIcon);
+        cancelButton.setMargin(new Insets(1,1,1,1));
+        cancelButton.setBounds(569, 20, 91, 25);
         getContentPane().add(cancelButton);
-        cancelButton.setBounds(570, 20, 90, 25);
         cancelButton.addActionListener(new ActionListener() 
         {
 			@Override
@@ -207,6 +223,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         openMenuItem.setText("Open");
         openMenuItem.setMnemonic('o');
+        openMenuItem.setIcon(openIcon);
         fileMenu.add(openMenuItem);
         openMenuItem.addActionListener(new ActionListener()
         {
@@ -219,6 +236,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         recentFileMenu.setText("Recent");
         recentFileMenu.setMnemonic('R');
+        recentFileMenu.setIcon(recentIcon);
         fileMenu.add(recentFileMenu);
         for(String filename:preferenceModel.getRecentFiles())
         {
@@ -231,6 +249,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         exitMenuItem.setText("Exit");
         exitMenuItem.setMnemonic('x');
+        exitMenuItem.setIcon(exitIcon);
         fileMenu.add(exitMenuItem);
         exitMenuItem.addActionListener(new ActionListener()
         {
@@ -248,6 +267,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         preferenceMenuItem.setText("Preference");
         preferenceMenuItem.setMnemonic('p');
+        preferenceMenuItem.setIcon(preferenceIcon);
         helpMenu.add(preferenceMenuItem);
         preferenceMenuItem.addActionListener(new ActionListener()
         {
@@ -260,6 +280,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         troubleMenuItem.setText("Troubleshoot");
         troubleMenuItem.setMnemonic('t');
+        troubleMenuItem.setIcon(troubleIcon);
         troubleMenuItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -279,6 +300,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         helpMenuItem.setText("GDT-Help");
         helpMenuItem.setMnemonic('h');
+        helpMenuItem.setIcon(helpIcon);
         helpMenuItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -298,6 +320,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         aboutMenuItem.setText("About");
         aboutMenuItem.setMnemonic('a');
+        aboutMenuItem.setIcon(aboutIcon);
         aboutMenuItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -354,6 +377,11 @@ public class MainJFrame extends javax.swing.JFrame {
     	GdtFileChooser gdtChooser = new GdtFileChooser(new File(preferenceModel.getLastLocation()));
 		int ret = gdtChooser.showDialog(getContentPane(), "open");
 		File[] selectedFiles = gdtChooser.getSelectedFiles();
+		for(File selectedFile : selectedFiles)
+		{
+			if(!selectedFile.exists())
+				return;
+		}
 		if(ret==gdtChooser.APPROVE_OPTION)
 		{
 			createGdtJobs(selectedFiles);

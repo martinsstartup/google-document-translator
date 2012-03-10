@@ -20,6 +20,7 @@
 
 package com.google.gdt.ui;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -51,7 +52,10 @@ public class AboutBox extends javax.swing.JDialog {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	ImageIcon aicon = new ImageIcon("resource/img/about_ico.png");
+        Image aimage = aicon.getImage();
+        setIconImage(aimage);
+        
         closeButton = new javax.swing.JButton();
         javax.swing.JLabel appTitleLabel = new javax.swing.JLabel();
         javax.swing.JLabel versionLabel = new javax.swing.JLabel();
