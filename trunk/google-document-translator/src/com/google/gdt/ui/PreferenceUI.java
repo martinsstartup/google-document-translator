@@ -20,6 +20,7 @@
 
 package com.google.gdt.ui;
 
+import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
@@ -65,7 +67,10 @@ public class PreferenceUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() 
     {
-
+    	ImageIcon icon = new ImageIcon("resource/img/preference.png");
+        Image image = icon.getImage();
+        setIconImage(image);
+        
         jPanel1 = new javax.swing.JPanel();
         proxyCheckBox = new javax.swing.JCheckBox();
         urlLabel = new javax.swing.JLabel();
