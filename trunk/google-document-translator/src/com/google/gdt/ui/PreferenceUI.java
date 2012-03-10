@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
+import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.KeyStroke;
@@ -70,12 +71,14 @@ public class PreferenceUI extends javax.swing.JDialog {
         urlLabel = new javax.swing.JLabel();
         urlField = new javax.swing.JTextField();
         portLabel = new javax.swing.JLabel();
+        apikeylabel = new javax.swing.JLabel();
         portSpinner = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         httpRadioButton = new javax.swing.JRadioButton();
         ajaxRadioButton = new javax.swing.JRadioButton();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        apiKeyField = new JPasswordField();
         
         buttonGroup = new ButtonGroup();
         toolTipManager = ToolTipManager.sharedInstance();
@@ -188,6 +191,7 @@ public class PreferenceUI extends javax.swing.JDialog {
         if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
         {
         	httpRadioButton.setSelected(true);
+        	apiKeyField.setEnabled(false);
         }
         toolTipManager.registerComponent(httpRadioButton);
         httpRadioButton.setToolTipText("Slow, less reliable but free. Use for academic purpose only ");
@@ -197,6 +201,8 @@ public class PreferenceUI extends javax.swing.JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				okButton.setEnabled(true);
+				apiKeyField.setEnabled(false);
+				apikeylabel.setEnabled(false);
 			}
 		});
         jPanel2.add(httpRadioButton);
@@ -207,21 +213,47 @@ public class PreferenceUI extends javax.swing.JDialog {
         if(preferenceModel.getTranslatorType()==TranslatorType.AJAX)
         {
         	ajaxRadioButton.setSelected(true);
+        	apiKeyField.setEnabled(true);
+        	apikeylabel.setEnabled(true);
         }
-        ajaxRadioButton.setToolTipText("Fast, reliable but going to be stopped on 31-12-2011");
+        ajaxRadioButton.setToolTipText("Fast, reliable but a paid service");
         ajaxRadioButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				okButton.setEnabled(true);
+				apiKeyField.setEnabled(true);
+				apikeylabel.setEnabled(true);
 			}
 		});
         jPanel2.add(ajaxRadioButton);
         ajaxRadioButton.setBounds(12, 46, 120, 23);
-
+        
+        apikeylabel.setText("API Key");
+        apikeylabel.setBounds(18, 76, 50, 14);
+        jPanel2.add(apikeylabel);
+        
+        apiKeyField.setBounds(70, 76, 280, 20);
+        apiKeyField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        apiKeyField.setText(preferenceModel.getApiKey());
+        apiKeyField.addKeyListener(new KeyAdapter() {
+        	@Override
+        	public void keyTyped(KeyEvent e) {
+        		if(!okButton.isEnabled())
+				{
+					okButton.setEnabled(true);
+				}
+        	}
+		});
+        jPanel2.add(apiKeyField);
+        
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(20, 150, 360, 100);
+        jPanel2.setBounds(20, 140, 360, 110);
 
         okButton.setText("OK");
         okButton.setMnemonic('o');
@@ -250,9 +282,11 @@ public class PreferenceUI extends javax.swing.JDialog {
 	{
 		String proxyUrl = urlField.getText();
 		String proxyPort = portSpinner.getValue().toString();
+		String apiKey = new String(apiKeyField.getPassword());
 		
 		preferenceModel.setProxyURL(proxyUrl);
 		preferenceModel.setProxyPort(new Integer(proxyPort));
+		preferenceModel.setApiKey(apiKey);
 		if(proxyCheckBox.isSelected())
 		{
 			System.setProperty("http.proxyHost", proxyUrl);
@@ -288,6 +322,7 @@ public class PreferenceUI extends javax.swing.JDialog {
     private javax.swing.JCheckBox proxyCheckBox;
     private javax.swing.JLabel urlLabel;
     private javax.swing.JLabel portLabel;
+    private javax.swing.JLabel apikeylabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton httpRadioButton;
@@ -295,6 +330,7 @@ public class PreferenceUI extends javax.swing.JDialog {
     private javax.swing.JSpinner portSpinner;
     private javax.swing.JTextField urlField;
     private ButtonGroup buttonGroup;
+    private JPasswordField apiKeyField;
     // End of variables declaration//GEN-END:variables
     
     //non GUI variables
@@ -308,7 +344,6 @@ class DisposeActionListener implements ActionListener {
 	Window window;
 	
 	public DisposeActionListener(Window window) {
-		// TODO Auto-generated constructor stub
 		this.window = window;
 	}
 	public void actionPerformed(java.awt.event.ActionEvent evt) {

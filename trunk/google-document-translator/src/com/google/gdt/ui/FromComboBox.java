@@ -26,8 +26,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JComboBox;
 
-import com.google.api.translate.Language;
 import com.google.gdt.main.PreferenceModel;
+import com.google.gdt.util.Language;
 
 /**
  * 
