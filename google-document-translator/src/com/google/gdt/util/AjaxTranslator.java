@@ -68,10 +68,12 @@ public class AjaxTranslator implements Translator
     protected static final String ENCODING = "UTF-8";
     
     protected static String key;
+    
+    protected static final String REFERER = "http://code.google.com/p/google-document-translator/";
 	
 	public AjaxTranslator() {
-		key = preferenceModel.getApiKey();
 		preferenceModel = PreferenceModel.getInstance();
+		key = preferenceModel.getApiKey();
 		logger.log(Level.INFO,"proxy url : "+System.getProperty("http.proxyHost"));
 		logger.log(Level.INFO,"proxy port : "+System.getProperty("http.proxyPort"));
 		logger.log(Level.INFO,"to language : "+preferenceModel.getToLanguage());
@@ -118,7 +120,7 @@ public class AjaxTranslator implements Translator
     protected static JSONObject retrieveJSON(final URL url) throws Exception {
     	try {
     		final HttpsURLConnection uc = (HttpsURLConnection) url.openConnection();
-    		uc.setRequestProperty("referer", "");
+    		uc.setRequestProperty("referer", REFERER);
     		uc.setRequestMethod("GET");
     		uc.setDoOutput(true);
     		
@@ -148,7 +150,7 @@ public class AjaxTranslator implements Translator
     protected static JSONObject retrieveJSON(final URL url, final String parameters) throws Exception {
     	try {
     		final HttpsURLConnection uc = (HttpsURLConnection) url.openConnection();
-    		uc.setRequestProperty("referer", "");
+    		uc.setRequestProperty("referer", REFERER);
     		uc.setRequestMethod("POST");
     		uc.setRequestProperty("X-HTTP-Method-Override","GET");
     		uc.setDoOutput(true);
