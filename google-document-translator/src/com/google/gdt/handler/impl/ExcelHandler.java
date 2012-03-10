@@ -111,23 +111,9 @@ public class ExcelHandler extends DocumentHandler{
 		             {
 						String inputText = cell.getStringCellValue();
 						String translatedTxt = inputText;
-						//in http post method, all key value pairs are seperated with &
-						if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
-							inputText = inputText.replaceAll("&", "and");
 						try
 						{
-							if(inputText.matches("\\s+"))//if the string is empty
-								continue;
-							if(inputText.contains("\n"))
-							{
-								inputText = inputText.replaceAll("[\\n]", " gdtnewline ");
-								translatedTxt = translator.translate(inputText);
-								translatedTxt = translatedTxt.replaceAll("gdtnewline", "\n");
-							}
-							else
-							{
-								translatedTxt = translator.translate(inputText);
-							}
+							translatedTxt = translator.translate(inputText);
 							cell.setCellValue(translatedTxt);
 						}
 						catch (Exception e) 

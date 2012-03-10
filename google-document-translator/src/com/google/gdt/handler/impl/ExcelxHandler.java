@@ -131,18 +131,7 @@ public class ExcelxHandler extends DocumentHandler
 						{
 							inputText = node.getText();
 							String translatedTxt = inputText;
-							if(inputText.matches("\\s+"))//if the string is empty
-								continue;
-							if(inputText.contains("\n"))
-							{
-								inputText = inputText.replaceAll("[\\n]", " gdtnewline ");
-								translatedTxt = translator.translate(inputText);
-								translatedTxt = translatedTxt.replaceAll("gdtnewline", "\n");
-							}
-							else
-							{
-								translatedTxt = translator.translate(inputText);
-							}
+							translatedTxt = translator.translate(inputText);
 							node.setText(translatedTxt);
 						} 
 						catch (Exception e) 

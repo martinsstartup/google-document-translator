@@ -90,8 +90,6 @@ public class TextHandler extends DocumentHandler
 					pLevel.setValue(count);
 					continue;
 				}
-				if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
-					inputText = inputText.replaceAll("&", "and");
 				
 				translatedText = translator.translate(inputText);
 			} 

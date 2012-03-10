@@ -94,26 +94,8 @@ public class WordHandler extends DocumentHandler
 					inputText = inputText.replaceAll("&", "and");
 				try
 				{
-					if(inputText.matches("\\s+"))//if the string is empty
-						continue;
-					if(inputText.contains("\n")||inputText.contains("\r")||inputText.contains("\t"))
-					{
-						translatedTxt = inputText.replaceAll("[\\n]", " gdtnewline ");
-						translatedTxt = translatedTxt.replaceAll("[\\r]", " gdtfromline ");
-						translatedTxt = translatedTxt.replaceAll("[\\t]", " gdttabline ");
-						translatedTxt = translator.translate(translatedTxt);
-						translatedTxt = translatedTxt.replaceAll("gdtnewline", "\n");
-						translatedTxt = translatedTxt.replaceAll("gdtfromline", "\r");
-						translatedTxt = translatedTxt.replaceAll("gdttabline", "\t");
-						if(!inputText.equals(translatedTxt))
-						charRun.replaceText(inputText, translatedTxt);
-					}
-					else
-					{
-						translatedTxt = translator.translate(inputText);
-						if(!inputText.equals(translatedTxt))
-						charRun.replaceText(inputText, translatedTxt.toString());
-					}
+					translatedTxt = translator.translate(translatedTxt);
+					charRun.replaceText(inputText, translatedTxt);
 				}
 				catch (Exception e) 
 				{
