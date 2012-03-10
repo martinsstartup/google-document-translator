@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.api.translate.Language;
+import com.google.gdt.util.Language;
 import com.google.gdt.util.TranslatorType;
 
 /**
@@ -67,6 +67,8 @@ public class PreferenceModel implements Serializable{
 	private List<String> recentFiles;
 	
 	private String lastLocation;
+	
+	private String apiKey;
 	
 	private static Logger logger = Logger.getLogger("PreferenceModel.class");
 	
@@ -103,7 +105,10 @@ public class PreferenceModel implements Serializable{
 				} 
 				catch (ClassNotFoundException e) 
 				{
-					// TODO Auto-generated catch block
+					logger.log(Level.SEVERE, "preferencemodel getInstance() load from saved object", e);
+					preferenceModel = new PreferenceModel();
+				}
+				catch (ClassCastException e) {
 					logger.log(Level.SEVERE, "preferencemodel getInstance() load from saved object", e);
 					preferenceModel = new PreferenceModel();
 				}
@@ -269,6 +274,14 @@ public class PreferenceModel implements Serializable{
 
 	public void setLastLocation(String lastLocation) {
 		this.lastLocation = lastLocation;
+	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
 	}
 	
 }
