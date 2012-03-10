@@ -88,22 +88,8 @@ public class PowerpointHandler extends DocumentHandler
 				try
 				{
 					inputText= aTextRun.getText();
-					//in http post method, all key value pairs are seperated with &
-					if(preferenceModel.getTranslatorType()==TranslatorType.HTTP)
-						inputText = inputText.replaceAll("&", "and");
-					if(inputText.matches("\\s+"))//if the string is empty
-						continue;
 					String translatedTxt = inputText;
-					if(inputText.contains("\n"))
-					{
-						inputText = inputText.replaceAll("[\\n]", " newline ");
-						translatedTxt = translator.translate(inputText);
-						translatedTxt = translatedTxt.replaceAll("newline", "\n");
-					}
-					else
-					{
-						translatedTxt = translator.translate(inputText);
-					}
+					translatedTxt = translator.translate(inputText);
 					aTextRun.setText(translatedTxt);
 				}
 				catch (Exception e) 
