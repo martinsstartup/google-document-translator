@@ -197,6 +197,7 @@ public class PreferenceUI extends javax.swing.JDialog {
         {
         	httpRadioButton.setSelected(true);
         	apiKeyField.setEnabled(false);
+        	apikeylabel.setEnabled(false);
         }
         toolTipManager.registerComponent(httpRadioButton);
         httpRadioButton.setToolTipText("Slow, less reliable but free. Use for academic purpose only ");
