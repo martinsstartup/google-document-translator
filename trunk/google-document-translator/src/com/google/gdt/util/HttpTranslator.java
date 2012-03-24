@@ -101,7 +101,7 @@ public class HttpTranslator implements Translator{
 		
 		if(null==inputText||inputText.equals(""))
 			return translatedText;
-		
+		inputText = inputText.replaceAll("[\\n]", " gdtnewline ");
 		inputText = URLEncoder.encode(inputText, "UTF-8");
 		 
 		String body = ametadata + inputText
@@ -109,6 +109,7 @@ public class HttpTranslator implements Translator{
 		
 		String response = doPost(body);
 		translatedText = parseResponse(response);
+		translatedText = translatedText.replaceAll("gdtnewline", "\n");
 		return HTMLEntities.unhtmlentities(translatedText);
 	}
 	
