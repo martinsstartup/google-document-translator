@@ -5,7 +5,7 @@ For Troubleshoot and FAQ please refer [http://code.google.com/p/google-document-
 
 = Introduction =
 
-We have tried to keep the GUI as simple as possible and free from too many options. Document translation using this software is pretty simple. Iy has three obvious steps
+We have tried to keep the GUI as simple as possible and free from too many options. Document translation using this software is pretty simple. It has three obvious steps
  # Select the document
  # Choose the translation language pair
  # Start translation
