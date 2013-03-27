@@ -9,6 +9,7 @@
   <UserPref name="projectName" default_value=""/>
 
   <Content type="html"><![CDATA[
+  <head><meta name="google-translate-customization" content="eb4ca10d7dc6aa45-576031de68a3aa30-g7c44345ede1576ab-2c"></meta></head>
   <div id="google_translate_element"></div>
   <script type="text/javascript">
 	function googleTranslateElementInit() {
