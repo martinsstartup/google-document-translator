@@ -5,12 +5,12 @@ For Troubleshoot and FAQ please refer [http://code.google.com/p/google-document-
 
 = Introduction =
 
-Document translation through this software consists of three simple steps
+We have tried to keep the GUI as simple as possible and free from too many options. Document translation using this software is pretty simple. Iy has three obvious steps
  # Select the document
  # Choose the translation language pair
  # Start translation
 
-We tried to keep the GUI as simple as possible and free from too many options. Still, some operations need explanation in order to perform better translation.
+Still, some operations need explanation in order to perform better translation.
 
 ===Translation language selection===
 This is the most important step in your document translation. We will support only those languages which are supported by Google. Selection of invalid language pair will end up in wrong translation.
